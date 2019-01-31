@@ -7,13 +7,13 @@
 //
 import Foundation
 
-// EventConsumers need to be compared so NSObjectProtocol for the easy win
+// EventConsumers need to be compared so NSObjectProtocol for the easy win.
 public protocol EventConsumer: NSObjectProtocol {
 
     /**
      *
      *  Containst a list of Event Types an EventConsumer implmentation expects to consume.
-     *  This is a useful place to look when debugging
+     *  This is a useful place to look when debugging.
      *
      **/
     var willConsume: [Event.Type] { get }
@@ -21,30 +21,28 @@ public protocol EventConsumer: NSObjectProtocol {
     /**
      *
      *   A point at which an Event is passed to an EventConsumer to consume.
-     *   This method should not fail when passed Event not the EventConsumer's registeredEventTypeList
+     *   This method should not fail when passed an Event not the EventConsumer's registeredEventTypeList.
      *
      **/
-    func consume<T:Event>(_ event: T) -> Void
-
+    func consume<T: Event>(_ event: T) -> Void
 
     /**
      *
-     *  Returns a list of ApplicationEventTypes an EventConsumer implmentation explicity does not consume.
-x     *
+     *	Returns a list of Events an EventConsumer explicity does not consume.
+	 *	These events will be ignored even if they are items on the willConsumer list.
      *
      **/
-    //var excludeList : [ApplicationEventType]  { get }
+     var excludeList: [Event.Type] { get }
 }
 
 /**
- *
- * Supply a default value for excludeList, effectivly making it optional.
- *
-
-extension EventConsumer{
-
-    var excludeList : [ApplicationEventType]?{
-        get { return .none }
+*
+* Supply a default value for excludeList, effectivly making it optional.
+*
+**/
+public extension EventConsumer {
+	
+    var excludeList: [Event.Type] {
+         return [NoEvent.self]
     }
 }
-**/

@@ -84,37 +84,14 @@ public class EventBus {
     * the consumer is handling AllEvent events.
     *
     **/
-    private func matchConsumerAndEvent<T:Event>(_ consumer: EventConsumer, _ eventType: T) -> Bool{
+    private func matchConsumerAndEvent<T:Event>(_ consumer: EventConsumer, _ eventType: T) -> Bool {
 
-
-		// exclude list
+		if consumer.excludeList.contains( where: { eventType in eventType is T.Type } ) { return false }
 
 		if consumer.willConsume.contains( where:
 			{ eventType in eventType is AllEvent.Type || eventType is T.Type })
 			{ return true }
 
-
-			/*
-        var eventExcluded = false
-        
-        if let excludeEventTypes = consumer.excludeList{
-            
-            eventExcluded = excludeEventTypes.contains(suppliedEventType)
-            
-            if eventExcluded{
-                
-                return false
-            }
-            
-        }
-        
-        let registeredEventTypes = consumer.registeredEventTypeList
-        
-        if registeredEventTypes.contains(suppliedEventType) || registeredEventTypes.contains(.All){
-            
-            return true
-        }
-      */
         return false
     }
 }
