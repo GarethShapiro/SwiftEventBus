@@ -8,3 +8,11 @@
 import Foundation
 
 public protocol Event {}
+
+// EventConsumers can elect to recieve all events by including
+// this event as an item of the willConsume array.
+public struct AllEvent: Event {}
+
+// Used as default value on EventConsumer's excludeList list
+// which avoids this property being Optional
+public struct NoEvent: Event {}
