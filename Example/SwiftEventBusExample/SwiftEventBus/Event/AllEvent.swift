@@ -8,5 +8,6 @@
 
 import Foundation
 
-// EventConsumers can elect to recieve all events by returning this event with the willConsume array.
+// EventConsumers can elect to recieve all events by including
+// this event as an item of the willConsume array.
 public struct AllEvent: Event {}

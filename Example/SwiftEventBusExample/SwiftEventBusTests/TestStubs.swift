@@ -25,7 +25,7 @@ class StubEventConsumer: NSObject, EventConsumer {
 }
 
 struct StubEvent: Event {}
-struct NotAssociatedStubEvent: Event {}
+struct AnotherStubEvent: Event {}
 
 struct StubEventWithPayload: Event {
 

@@ -42,8 +42,33 @@ class EventTests: XCTestCase {
 
     func testAllEvent() {
 
+		// GIVEN an EventConsumer which includes the AllEvent as an item in the willConsume array
+		// AND this EventConsumer is registred with an EVentBus
+		// WHEN events not included in the EventConsumers willConsumer array are dispatched on the EventBus
+		// THEY are consumed by the EventConsumer
+		let stubEventBus = EventBus()
+		let stubEventConsumer = StubAllEventConsumer()
+		stubEventBus.register(stubEventConsumer)
 
+		let stubEvent = StubEvent()
+		stubEventBus.dispatch(stubEvent)
+
+		check(stubEvent , stubEventConsumer)
+
+		let anotherStubEvent = AnotherStubEvent()
+		stubEventBus.dispatch(anotherStubEvent)
+
+		check(anotherStubEvent , stubEventConsumer)
     }
+
+	func check<T>(_ event: T, _ consumer: StubAllEventConsumer) {
+
+		XCTAssertTrue(consumer.consumeWasCalled, "EventConsumer.consume was not called.")
+
+		if let eventConsumeCalledWith = consumer.consumeCalledWith {
+			XCTAssertTrue(eventConsumeCalledWith is T, "EventConsumer.consume was not called with the correct Event : \(event.self)")
+		}
+	}
 
     class StubAllEventConsumer: NSObject, EventConsumer {
 

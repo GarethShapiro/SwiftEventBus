@@ -46,10 +46,8 @@ public class EventBus {
         //let eventTypeToHandle = event.type
         
         for consumer in consumerList {
+			if matchConsumerAndEvent(consumer,event) { consumer.consume(event) }
 
-            if consumer.willConsume.contains(where: { eventType in eventType is T.Type }) {
-                consumer.consume(event)
-            }
 
             /*
              if should(consumer: consumer ,  handleEventType:eventTypeToHandle){
@@ -73,16 +71,30 @@ public class EventBus {
     
     /**
     *
-    * EventConsumers consume events if :
+    * EventConsumers consume events if
     *
-    * The event is not in the consumer's exclude list, if there is one.
-    * The event is a registered event type with the consumer.
-    * The consumer is handling .All events.
+	* The event type is not in the consumer's exclude list, if there is one.
+	*
+	* and then either
+	*
+	* the event type is in the consumer's willConsumer list
+	*
+	* or
+	*
+    * the consumer is handling AllEvent events.
     *
     **/
-    /*
-    func should(_ consumer : EventConsumer , handle eventType : ApplicationEventType) -> Bool{
-        
+    private func matchConsumerAndEvent<T:Event>(_ consumer: EventConsumer, _ eventType: T) -> Bool{
+
+
+		// exclude list
+
+		if consumer.willConsume.contains( where:
+			{ eventType in eventType is AllEvent.Type || eventType is T.Type })
+			{ return true }
+
+
+			/*
         var eventExcluded = false
         
         if let excludeEventTypes = consumer.excludeList{
@@ -102,9 +114,7 @@ public class EventBus {
             
             return true
         }
-        
+      */
         return false
     }
- */
-    
 }

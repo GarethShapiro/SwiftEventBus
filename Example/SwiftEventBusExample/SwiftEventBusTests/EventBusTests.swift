@@ -42,7 +42,7 @@ class EventBusTests: XCTestCase {
         // THEN the consume method of the EventConsumer will not be called
         let stubEventBus = EventBus()
         let stubEventConsumer = StubEventConsumer()
-        let stubEvent = NotAssociatedStubEvent()
+        let stubEvent = AnotherStubEvent()
 
         stubEventBus.register(stubEventConsumer)
         stubEventBus.dispatch(stubEvent)

@@ -16,7 +16,7 @@ public protocol EventConsumer: NSObjectProtocol {
      *  This is a useful place to look when debugging
      *
      **/
-    var willConsume : [Event.Type] { get }
+    var willConsume: [Event.Type] { get }
 
     /**
      *
