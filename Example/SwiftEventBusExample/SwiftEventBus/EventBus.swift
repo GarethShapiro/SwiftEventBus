@@ -44,9 +44,12 @@ public class EventBus {
         
         // COMMENTED
         //let eventTypeToHandle = event.type
-        
+
         for consumer in consumerList {
-			if matchConsumerAndEvent(consumer,event) { consumer.consume(event) }
+
+            guard consumer.willConsume.contains(where: { event in event is NoEvent.Type }) == false else { break }
+
+            if matchConsumerAndEvent(consumer,event) { consumer.consume(event) }
 
 
             /*

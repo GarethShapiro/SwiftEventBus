@@ -14,5 +14,5 @@ public protocol Event {}
 public struct AllEvent: Event {}
 
 // Used as default value on EventConsumer's excludeList list
-// which avoids this property being Optional
+// which avoids this property being an Optional
 public struct NoEvent: Event {}
