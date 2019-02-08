@@ -15,7 +15,7 @@ class EventBusTests: XCTestCase {
 
         // GIVEN an instance of EventBus
         // WHEN an EventConsumer is registered
-        // AND an Event the EventConsumer will consume is dispatched on the EventBus
+        // AND an Event the EventConsumer will consume (not on excludeList and on willConsume) is dispatched on the EventBus
         // THEN the consume method of the EventConsumer will be called with an instance as an argument
         let stubEventBus = EventBus()
         let stubEventConsumer = StubEventConsumer()
@@ -25,34 +25,23 @@ class EventBusTests: XCTestCase {
         stubEventBus.dispatch(stubEvent)
 
         XCTAssertTrue(stubEventConsumer.consumeWasCalled, "EventConsumer.consume was not called.")
-
-        guard let eventConsumeCalledWith = stubEventConsumer.consumeCalledWith else {
-            XCTFail("Something is very wrong.  EventConsumer.consume was not called with an Event")
-            return
-        }
-
-        XCTAssertTrue(eventConsumeCalledWith is StubEvent, "EventConsumer.consume was not called with the correct Event : \(stubEvent.self)")
+        XCTAssertTrue(stubEventConsumer.consumeCalledWith is StubEvent, "EventConsumer.consume was not called with the correct Event : \(stubEvent.self)")
     }
 
     func testConsumeMethodWithIncorrectEvent() {
 
         // GIVEN an instance of EventBus
         // WHEN an EventConsumer is registered
-        // AND an Event the EventConsumer will not consume is dispatched on the EventBus
+        // AND an Event the EventConsumer will not consume (not on willConsume) is dispatched on the EventBus
         // THEN the consume method of the EventConsumer will not be called
         let stubEventBus = EventBus()
         let stubEventConsumer = StubEventConsumer()
-        let stubEvent = AnotherStubEvent()
+        let anotherstubEvent = AnotherStubEvent()
 
         stubEventBus.register(stubEventConsumer)
-        stubEventBus.dispatch(stubEvent)
+        stubEventBus.dispatch(anotherstubEvent)
 
         XCTAssertFalse(stubEventConsumer.consumeWasCalled, "EventConsumer.consume was unexpectedly called.")
-
-        if let _ = stubEventConsumer.consumeCalledWith {
-            XCTFail("Something is very wrong.  EventConsumer.consume was called with an Event")
-            return
-        }
     }
 
     func testUnregisteredConsumerDoesNotConsumeEvents() {
@@ -72,10 +61,5 @@ class EventBusTests: XCTestCase {
         stubEventBus.dispatch(stubEvent)
 
         XCTAssertFalse(stubEventConsumer.consumeWasCalled, "EventConsumer.consume was unexpectedly called.")
-
-        if let _ = stubEventConsumer.consumeCalledWith {
-            XCTFail("Something is very wrong.  EventConsumer.consume was called with an Event")
-            return
-        }
     }
 }
