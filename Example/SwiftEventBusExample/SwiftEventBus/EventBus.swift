@@ -10,7 +10,6 @@ import Foundation
 public class EventBus {
 
     public init() {}
-    
     private lazy var consumerList = [EventConsumer]()
     
     /**
@@ -19,7 +18,6 @@ public class EventBus {
     *
     **/
     public func register(_ consumer: EventConsumer) {
-
         if consumerList.contains(where: { listItem in listItem.isEqual(consumer) }) == false {
             consumerList.append(consumer)
         }
@@ -31,7 +29,6 @@ public class EventBus {
     *
     **/
     public func deregister(_ consumer: EventConsumer) {
-
         consumerList = consumerList.filter({ listItem in listItem.isEqual(consumer) == false })
     }
     
@@ -41,37 +38,21 @@ public class EventBus {
     *
     ***/
     public func dispatch<T:Event>(_ event: T) {
-        
-        // COMMENTED
-        //let eventTypeToHandle = event.type
 
         for consumer in consumerList {
 
             guard consumer.willConsume.contains(where: { event in event is NoEvent.Type }) == false else { break }
-
             if matchConsumerAndEvent(consumer,event) { consumer.consume(event) }
 
+			if event is DidConsumeEvent.Type == false {
+				let didNotConsumerEvent = DidConsumeEvent(consumer: consumer, event: event)
 
-            /*
-             if should(consumer: consumer ,  handleEventType:eventTypeToHandle){
-            
-                consumer.consume(event: suppliedApplicationEvent)
-                
-                // Immediately recursivly call with .DidConsume unless this has already happened once.
-                if(eventTypeToHandle != .DidConsume){
-                    
-                    let didConsumEvent = ApplicationEvent(type: .DidConsume,
-                                                          triggerType: eventTypeToHandle,
-                                                          source: consumer)
-                    
-                    handle(applicationEvent:didConsumEvent)
-                }
-            }
-             */
+				// something is wrong here
+				//dispatch(didNotConsumerEvent)
+			}
         }
     }
-    
-    
+
     /**
     *
     * EventConsumers consume events if

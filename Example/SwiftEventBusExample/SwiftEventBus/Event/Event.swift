@@ -16,3 +16,11 @@ public struct AllEvent: Event {}
 // Used as default value on EventConsumer's excludeList list
 // which avoids this property being an Optional
 public struct NoEvent: Event {}
+
+// Automciatically dispatched by EventBus notifying that an
+// event was consumed by a consumer
+public struct DidConsumeEvent: Event {
+
+	let consumer: EventConsumer
+	let event: Event
+}
