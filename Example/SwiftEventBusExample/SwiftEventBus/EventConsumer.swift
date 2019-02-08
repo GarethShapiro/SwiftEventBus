@@ -43,6 +43,6 @@ public protocol EventConsumer: NSObjectProtocol {
 public extension EventConsumer {
 	
     var excludeList: [Event.Type] {
-         return [NoEvent.self]
+         return []
     }
 }

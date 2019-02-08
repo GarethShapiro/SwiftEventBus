@@ -89,6 +89,10 @@ public class EventBus {
     **/
     private func matchConsumerAndEvent<T:Event>(_ consumer: EventConsumer, _ eventType: T) -> Bool {
 
+		if consumer.excludeList.contains(where:
+			{ event in event is NoEvent.Type })
+			{ return true}
+
 		if consumer.excludeList.contains( where:
             { eventType in eventType is AllEvent.Type || eventType is T.Type } )
             { return false }
