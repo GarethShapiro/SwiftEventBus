@@ -44,11 +44,15 @@ public class EventBus {
             guard consumer.willConsume.contains(where: { event in event is NoEvent.Type }) == false else { break }
             if matchConsumerAndEvent(consumer,event) { consumer.consume(event) }
 
-			if event is DidConsumeEvent.Type == false {
+			if event is DidConsumeEvent == false {
 				let didNotConsumerEvent = DidConsumeEvent(consumer: consumer, event: event)
 
-				// something is wrong here
-				//dispatch(didNotConsumerEvent)
+				DispatchQueue.main.async {
+
+					[weak self] in
+					
+					self?.dispatch(didNotConsumerEvent)
+				}
 			}
         }
     }
