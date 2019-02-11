@@ -14,13 +14,23 @@ public protocol Event {}
 public struct AllEvent: Event {}
 
 // Used as default value on EventConsumer's excludeList list
-// which avoids this property being an Optional
+// which avoids this property being an Optional.
 public struct NoEvent: Event {}
 
-// Automciatically dispatched by EventBus notifying that an
-// event was consumed by a consumer
-public struct DidConsumeEvent: Event {
+// Automatically dispatched by EventBus notifying that an
+// event was consumed by a consumer.
+public struct DidConsumeEvent<T:EventConsumer>: Event {
 
-	let consumer: EventConsumer
-	let event: Event
+	public let sourceConsumer: T
+	public let sourceEvent: Event
+
+    public init(sourceConsumer: T, sourceEvent: Event) {
+
+        self.sourceConsumer = sourceConsumer
+        self.sourceEvent = sourceEvent
+    }
+//
+//    public static func == (lhs: T, rhs: T) -> Bool {
+//        return lhs.sourceConsumer == rhs.sourceConsumer && lhs.sourceEvent == rhs.sourceEvent
+//    }
 }

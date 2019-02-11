@@ -62,4 +62,65 @@ class EventBusTests: XCTestCase {
 
         XCTAssertFalse(stubEventConsumer.consumeWasCalled, "EventConsumer.consume was unexpectedly called.")
     }
+
+    func testDidConsumeIsDispatchedAfterEventConsumedForOneConsumer() {
+
+        // GIVEN an instance of EventBus
+        // WHEN two EventConsumers are registered with it, the first willConsume StubEvents and the second willConsume DidConsumeEvents
+        // AND the stub Event is dispatched on the EventBus
+        // THEN the consume method of the first EventConsumer is called with an instance of the stub event as an argurment
+        // AND subsequently the consume method of the second EventConsumer is called with an instance of DidConsumeEvent as an argurment
+        // AND the DidConsumeEvent has references tp the original event and original consumer
+        let stubEventBus = EventBus()
+        let stubEventConsumer = StubEventConsumer()
+        let didConsumeStubEventConsumer = DidConsumeStubEventConsumer()
+
+        let stubEvent = StubEvent()
+        let stubDidConsumeEvent: DidConsumeEvent<StubEventConsumer> = DidConsumeEvent(sourceConsumer: stubEventConsumer, sourceEvent: stubEvent)
+
+        let didConsumeExpectation = XCTestExpectation(description: "DidConsumeEvent not consumed")
+
+        let didConsumeEventBlock = {
+            didConsumeExpectation.fulfill()
+
+               /*
+            guard let didConsumeEvent = didConsumeStubEventConsumer.consumeCalledWith as? DidConsumeEvent else {
+                XCTFail("EventConsumer.consume was not called with the correct Event : \(stubDidConsumeEvent.self)")
+                return
+            }
+
+
+            XCTAssertEqual(didConsumeEvent.sourceEvent.Type, stubEvent.Type,"Unexpected DidConsumeEvent.sourceEvent : \(didConsumeEvent.sourceEvent.self)")
+*/
+
+
+        }
+
+        didConsumeStubEventConsumer.wasConsumedBlock = didConsumeEventBlock
+
+        stubEventBus.register(stubEventConsumer)
+        stubEventBus.register(didConsumeStubEventConsumer)
+
+        stubEventBus.dispatch(stubEvent)
+
+        XCTAssertTrue(stubEventConsumer.consumeWasCalled, "EventConsumer.consume was not called.")
+        XCTAssertTrue(stubEventConsumer.consumeCalledWith is StubEvent, "EventConsumer.consume was not called with the correct Event : \(stubEvent.self)")
+
+        wait(for: [didConsumeExpectation], timeout: 0.5)
+    }
+}
+
+class DidConsumeStubEventConsumer: TestableEventConsumer {
+
+    var wasConsumedBlock: (() -> Void)?
+
+    override func consume<T>(_ event: T) where T : Event {
+        super.consume(event)
+        wasConsumedBlock?()
+    }
+
+
+    override var willConsume: [Event.Type] {
+        return []
+    }
 }

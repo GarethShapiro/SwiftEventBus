@@ -200,20 +200,6 @@ func check<T>(_ event: T, consumedBy consumer: TestableEventConsumer) -> Bool {
     return eventConsumeCalledWith is T
 }
 
-class TestableEventConsumer: NSObject, EventConsumer {
-
-    var consumeWasCalled = false
-    var consumeCalledWith: Event?
-
-    var willConsume: [Event.Type] { return [] }
-    var excludeList: [Event.Type] { return [] }
-
-    func consume<T>(_ event: T) where T: Event {
-        consumeWasCalled = true
-        consumeCalledWith = event
-    }
-}
-
 class StubWillConsumeAllEventEventConsumer: TestableEventConsumer {
 
     override var willConsume: [Event.Type] {

@@ -37,12 +37,12 @@ public protocol EventConsumer: NSObjectProtocol {
 
 /**
 *
-* Supply a default value for excludeList, effectivly making it optional.
+* Supply a default value for excludeList, so you don't have to.
 *
 **/
 public extension EventConsumer {
 	
     var excludeList: [Event.Type] {
-         return [DidConsumeEvent.self]
+         return []
     }
 }

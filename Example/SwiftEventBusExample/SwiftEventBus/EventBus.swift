@@ -14,7 +14,7 @@ public class EventBus {
     
     /**
     *
-    * EventConsumers apply to consume events.
+    * EventConsumers register to consume events.
     *
     **/
     public func register(_ consumer: EventConsumer) {
@@ -39,23 +39,46 @@ public class EventBus {
     ***/
     public func dispatch<T:Event>(_ event: T) {
 
+
+        func makeDidConsumeEvent<U:EventConsumer, T:Event>(_ aconsumer: U, _ aevent: T) -> DidConsumeEvent<U> {
+            return DidConsumeEvent(sourceConsumer: aconsumer, sourceEvent: aevent)
+        }
+
         for consumer in consumerList {
 
             guard consumer.willConsume.contains(where: { event in event is NoEvent.Type }) == false else { break }
-            if matchConsumerAndEvent(consumer,event) { consumer.consume(event) }
 
-			if event is DidConsumeEvent == false {
-				let didNotConsumerEvent = DidConsumeEvent(consumer: consumer, event: event)
+            var group: DispatchGroup?
 
-				DispatchQueue.main.async {
+            if matchConsumerAndEvent(consumer,event) {
+                group = DispatchGroup()
+                group?.enter()
+                consumer.consume(event)
+            }
 
-					[weak self] in
-					
-					self?.dispatch(didNotConsumerEvent)
-				}
-			}
+            let didNotConsumerEvent = makeDidConsumeEvent(consumer, event)
+
+                //makeDidConsumeEvent(consumer, event)
+
+
+          //  let consumerType = DidConsumeEvent<EventConsumer>
+
+			//if event is DidConsumeEvent<consumer.Type> == false {
+
+//                let didNotConsumerEvent = DidConsumeEvent(sourceConsumer: consumer, sourceEvent: event)
+//
+//                group?.notify(queue: .main) {
+//                    [weak self] in
+//                    self?.dispatch(didNotConsumerEvent)
+//                }
+			//}
+
+            group?.leave()
         }
+
     }
+
+
 
     /**
     *
