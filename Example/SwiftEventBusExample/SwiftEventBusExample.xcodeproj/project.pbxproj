@@ -25,6 +25,8 @@
 		6AEE17BE2201BF62004F7A58 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AEE17BC2201BF62004F7A58 /* LaunchScreen.xib */; };
 		6AEE17C12201BFC6004F7A58 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AEE17C02201BFC6004F7A58 /* Model.swift */; };
 		A40E9331220352D500589942 /* EventConsumerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40E9330220352D500589942 /* EventConsumerTests.swift */; };
+		A49850202211ED7000B67347 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = A498501F2211ED7000B67347 /* main.swift */; };
+		A49850212211F01B00B67347 /* TestAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A498501C2211ECAC00B67347 /* TestAppDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,6 +98,8 @@
 		6AEE17C52201C3AB004F7A58 /* EventBus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventBus.swift; sourceTree = "<group>"; };
 		6AEE17C62201C3AB004F7A58 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		A40E9330220352D500589942 /* EventConsumerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventConsumerTests.swift; sourceTree = "<group>"; };
+		A498501C2211ECAC00B67347 /* TestAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAppDelegate.swift; sourceTree = "<group>"; };
+		A498501F2211ED7000B67347 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -221,6 +225,8 @@
 				6ACA309921DA7EB400E78D56 /* Assets.xcassets */,
 				6ACA309E21DA7EB400E78D56 /* Info.plist */,
 				6AEE17BC2201BF62004F7A58 /* LaunchScreen.xib */,
+				A498501C2211ECAC00B67347 /* TestAppDelegate.swift */,
+				A498501F2211ED7000B67347 /* main.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -420,6 +426,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				6ACA309521DA7EB200E78D56 /* ViewController.swift in Sources */,
+				A49850202211ED7000B67347 /* main.swift in Sources */,
+				A49850212211F01B00B67347 /* TestAppDelegate.swift in Sources */,
 				6AEE17BB2201BACF004F7A58 /* FirstEvent.swift in Sources */,
 				6AEE17C12201BFC6004F7A58 /* Model.swift in Sources */,
 				6ACA309321DA7EB200E78D56 /* AppDelegate.swift in Sources */,
