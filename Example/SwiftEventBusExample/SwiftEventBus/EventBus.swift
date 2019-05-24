@@ -39,24 +39,32 @@ public class EventBus {
     ***/
     public func dispatch<T:Event>(_ event: T) {
 
-
-        func makeDidConsumeEvent<U:EventConsumer, T:Event>(_ aconsumer: U, _ aevent: T) -> DidConsumeEvent<U> {
-            return DidConsumeEvent(sourceConsumer: aconsumer, sourceEvent: aevent)
-        }
-
         for consumer in consumerList {
 
             guard consumer.willConsume.contains(where: { event in event is NoEvent.Type }) == false else { break }
 
-            var group: DispatchGroup?
-
             if matchConsumerAndEvent(consumer,event) {
-                group = DispatchGroup()
-                group?.enter()
-                consumer.consume(event)
-            }
 
-            let didNotConsumerEvent = makeDidConsumeEvent(consumer, event)
+                let group = DispatchGroup()  // what's this dispatch group for?
+                group.enter()
+                consumer.consume(event)
+
+                switch T.self {
+                    
+                case is DidConsumeEvent:
+                    let didConsumerEvent = DidConsumeEvent(sourceConsumer: consumer, sourceEvent: event)
+                    dispatch(didConsumerEvent)
+                default:
+                    () // do nothing
+                }
+                
+                group.leave()
+            }
+         
+            //       let didNotConsumerEvent = makeDidConsumeEvent(consumer, event)
+            
+
+        //    let didNotConsumerEvent = makeDidConsumeEvent(consumer, event)
 
                 //makeDidConsumeEvent(consumer, event)
 
@@ -73,16 +81,12 @@ public class EventBus {
 //                }
 			//}
 
-            group?.leave()
         }
-
     }
-
-
 
     /**
     *
-    * EventConsumers consume events if
+    * EventConsumers consume Events if:
     *
 	* The event type is not in the consumer's exclude list, if there is one.
 	*

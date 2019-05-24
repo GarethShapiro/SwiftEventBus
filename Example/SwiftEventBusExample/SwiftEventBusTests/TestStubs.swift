@@ -30,11 +30,31 @@ class StubEventConsumer: TestableEventConsumer {
     }
 }
 
-struct StubEvent: Event {}
-struct AnotherStubEvent: Event {}
+class DidConsumeStubEventConsumer<U:EventConsumer>: TestableEventConsumer {
+    
+    var wasConsumedBlock: (() -> Void)?
+    
+    override func consume<T>(_ event: T) where T: Event {
+        super.consume(event)
+        wasConsumedBlock?()
+    }
+    
+    override var willConsume: [Event.Type]{
+        return [DidConsumeEvent.self]
+    }
+}
+
+struct StubEvent: Event {
+    public let name = "StubEvent"
+}
+struct AnotherStubEvent: Event
+    public let name = "AnotherStubEvent"
+}
 
 struct StubEventWithPayload: Event {
 
+    public let name = "StubEventWithPayload"
+    
     var payload: Payload?
 
     struct Payload {

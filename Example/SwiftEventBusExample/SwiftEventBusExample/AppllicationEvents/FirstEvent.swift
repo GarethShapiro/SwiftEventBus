@@ -11,6 +11,8 @@ import SwiftEventBus
 
 struct FirstEvent: Event {
 
+    let name = "FirstEvent"
+
     var payload: Payload?
 
     struct Payload {
