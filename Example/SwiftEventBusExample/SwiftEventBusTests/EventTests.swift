@@ -31,13 +31,8 @@ class EventTests: XCTestCase {
             return
         }
 
-        guard let targetPayload = targetEvent.payload else {
-            XCTFail("Expected payload found on consumed Event")
-            return
-        }
-
-        XCTAssertEqual(stubPayload.item, targetPayload.item, "Payload on consumed Event differs from the one supplied (1)")
-        XCTAssertEqual(stubPayload.list, targetPayload.list, "Payload on consumed Event differs from the one supplied (2)")
+        XCTAssertEqual(stubPayload.item, targetEvent.payload.item, "Payload on consumed Event differs from the one supplied (1)")
+        XCTAssertEqual(stubPayload.list, targetEvent.payload.list, "Payload on consumed Event differs from the one supplied (2)")
     }
 }
 

@@ -205,6 +205,12 @@ class StubWillConsumeAllEventEventConsumer: TestableEventConsumer {
     override var willConsume: [Event.Type] {
         return [AllEvent.self]
     }
+    
+    // If DidConsumeEvent is not excluded then it is not possible to test which events actually were consumed.
+    // There are tests in EventBusTests which test for DidConsumeEvent.
+    override var excludeList: [Event.Type] {
+        return [DidConsumeEvent.self]
+    }
 }
 
 class StubWillConsumeNoEventEventConsumer: TestableEventConsumer {

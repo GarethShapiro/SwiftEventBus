@@ -7,25 +7,23 @@
 
 import Foundation
 
-public protocol Event {
-    var name: String { get }
-}
+public protocol Event: NSObjectProtocol { }
 
 // EventConsumers can elect to recieve all events by including
 // this event as an item of the willConsume array.
-public struct AllEvent: Event {
+public class AllEvent: NSObject, Event {
     public let name = "AllEvent"
 }
 
 // Used as default value on EventConsumer's excludeList list
 // which avoids this property being an Optional.
-public struct NoEvent: Event {
+public class NoEvent: NSObject, Event {
     public let name = "NoEvent"
 }
 
 // Automatically dispatched by EventBus notifying that an
 // event was consumed by a consumer.
-public struct DidConsumeEvent: Event {
+public class DidConsumeEvent: NSObject, Event {
 
     public let name = "DidConsumeEvent"
     
@@ -37,8 +35,7 @@ public struct DidConsumeEvent: Event {
         self.sourceConsumer = sourceConsumer
         self.sourceEvent = sourceEvent
     }
-
-    public static func == (lhs: DidConsumeEvent, rhs: DidConsumeEvent) -> Bool {
-        return lhs.sourceConsumer.isEqual(rhs.sourceConsumer) && lhs.sourceEvent.name == rhs.sourceEvent.name
-    }
+//    public static func == (lhs: DidConsumeEvent, rhs: DidConsumeEvent) -> Bool {
+//        return lhs.sourceConsumer.isEqual(rhs.sourceConsumer) && lhs.sourceEvent.isEqual(rhs.sourceEvent)
+//    }
 }

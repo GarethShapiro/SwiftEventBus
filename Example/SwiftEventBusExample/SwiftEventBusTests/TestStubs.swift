@@ -18,8 +18,8 @@ class TestableEventConsumer: NSObject, EventConsumer {
     var excludeList: [Event.Type] { return [] }
 
     func consume<T>(_ event: T) where T: Event {
-        consumeWasCalled = true
-        consumeCalledWith = event
+            consumeWasCalled = true
+            consumeCalledWith = event
     }
 }
 
@@ -44,19 +44,25 @@ class DidConsumeStubEventConsumer<U:EventConsumer>: TestableEventConsumer {
     }
 }
 
-struct StubEvent: Event {
+class StubEvent: NSObject, Event {
     public let name = "StubEvent"
 }
-struct AnotherStubEvent: Event
+
+class AnotherStubEvent: NSObject, Event {
     public let name = "AnotherStubEvent"
 }
 
-struct StubEventWithPayload: Event {
+class StubEventWithPayload: NSObject, Event {
 
     public let name = "StubEventWithPayload"
     
-    var payload: Payload?
+    var payload: Payload
 
+    init(payload: Payload) {
+        
+        self.payload = payload
+    }
+    
     struct Payload {
 
         var item: Bool

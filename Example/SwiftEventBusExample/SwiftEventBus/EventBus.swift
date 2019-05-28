@@ -49,13 +49,12 @@ public class EventBus {
                 group.enter()
                 consumer.consume(event)
 
-                switch T.self {
+                
+                
+                if event is DidConsumeEvent == false {
                     
-                case is DidConsumeEvent:
                     let didConsumerEvent = DidConsumeEvent(sourceConsumer: consumer, sourceEvent: event)
                     dispatch(didConsumerEvent)
-                default:
-                    () // do nothing
                 }
                 
                 group.leave()
@@ -88,7 +87,9 @@ public class EventBus {
     *
     * EventConsumers consume Events if:
     *
-	* The event type is not in the consumer's exclude list, if there is one.
+    * The consumer's exclude list is not excluding AllEvent
+    *
+	* The event type is not in the consumer's exclude list.
 	*
 	* and then either
 	*
@@ -99,19 +100,16 @@ public class EventBus {
     * the consumer is handling AllEvent events.
     *
     **/
-    private func matchConsumerAndEvent<T:Event>(_ consumer: EventConsumer, _ eventType: T) -> Bool {
+    private func matchConsumerAndEvent(_ consumer: EventConsumer, _ targetEvent: Event) -> Bool {
 
-		if consumer.excludeList.contains(where:
-			{ event in event is NoEvent.Type })
-			{ return true}
+        if consumer.excludeList.contains(where: { excludeEvent in
+            excludeEvent is AllEvent.Type || targetEvent.isKind(of:excludeEvent)})
+        { return false }
+            
 
-		if consumer.excludeList.contains( where:
-            { eventType in eventType is AllEvent.Type || eventType is T.Type } )
-            { return false }
-
-		if consumer.willConsume.contains( where:
-			{ eventType in eventType is AllEvent.Type || eventType is T.Type })
-			{ return true }
+		if consumer.willConsume.contains(where: { includeEvent in
+            targetEvent.isKind(of: includeEvent) || includeEvent is AllEvent.Type })
+        { return true }
 
         return false
     }

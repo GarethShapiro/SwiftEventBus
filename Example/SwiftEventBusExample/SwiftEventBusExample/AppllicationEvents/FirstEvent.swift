@@ -9,12 +9,17 @@
 import Foundation
 import SwiftEventBus
 
-struct FirstEvent: Event {
+class FirstEvent: NSObject, Event {
 
     let name = "FirstEvent"
 
     var payload: Payload?
 
+    init(payload: Payload) {
+        
+        self.payload = payload
+    }
+    
     struct Payload {
 
         var item: Bool
