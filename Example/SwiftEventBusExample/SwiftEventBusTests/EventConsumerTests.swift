@@ -158,12 +158,12 @@ class EventConsumerTests: XCTestCase {
         XCTAssertFalse(stubEventConsumer.consumeWasCalled, "EventConsumer.consume was unexpectedly called.")
     }
 
-	// NoEvent on excludeList results in all events being consumed, refardless of other items on the excludeList
+	// NoEvent on excludeList results in all events being consumed, regardless of other items on the excludeList
 	func testExcludeNoEventWillConsumeOtherExcludedEvents() {
 
 		// GIVEN a registered EventConsumer which includes a NoEvent on its excludeList
 		// AND also has another Event is on its excludeList list
-		// WHEN the event also on the excludeList is dispatched on the EventBus
+		// WHEN the second event on the excludeList is dispatched on the EventBus
 		// THEN the EventConsumer does consume this Event
 		let stubEventConsumer = ExcludeNoneStubEventConsumer()
 		let eventBus = EventBus()

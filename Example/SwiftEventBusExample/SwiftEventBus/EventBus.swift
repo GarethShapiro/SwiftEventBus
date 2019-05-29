@@ -9,6 +9,8 @@ import Foundation
 
 public class EventBus {
 
+    typealias ExcludeListComposition = (no: Int,all: Int,match: Int)
+    
     public init() {}
     private lazy var consumerList = [EventConsumer]()
     
@@ -85,32 +87,49 @@ public class EventBus {
 
     /**
     *
-    * EventConsumers consume Events if:
+    * EventConsumers will consume an Event (target event) if (in order):
     *
     * The consumer's exclude list is not excluding AllEvent
+    * The consumer's exclude list is excluding NoEvent
+    * The consumer's exclude does not include the target event type
     *
-	* The event type is not in the consumer's exclude list.
-	*
-	* and then either
-	*
-	* the event type is in the consumer's willConsumer list
-	*
-	* or
-	*
-    * the consumer is handling AllEvent events.
-    *
+	* The event target type is in the consumer's willConsumer list
+	* AllEvent is on the consumer's willConsumer list
+    * The consumer's willConsume list does not contain NoEvent
+	* 
     **/
+    
     private func matchConsumerAndEvent(_ consumer: EventConsumer, _ targetEvent: Event) -> Bool {
 
-        if consumer.excludeList.contains(where: { excludeEvent in
-            excludeEvent is AllEvent.Type || targetEvent.isKind(of:excludeEvent)})
-        { return false }
+        let excludeListComposition: ExcludeListComposition = consumer.excludeList.reduce(ExcludeListComposition(0,0,0)) { (compositionSoFar, excludeEvent) -> ExcludeListComposition in
             
-
-		if consumer.willConsume.contains(where: { includeEvent in
-            targetEvent.isKind(of: includeEvent) || includeEvent is AllEvent.Type })
-        { return true }
-
+            var compositionSoFar = compositionSoFar
+            if excludeEvent is NoEvent.Type { compositionSoFar.no = compositionSoFar.no + 1 }
+            if excludeEvent is AllEvent.Type { compositionSoFar.all = compositionSoFar.all + 1 }
+            if targetEvent.isKind(of:excludeEvent) { compositionSoFar.match = compositionSoFar.match + 1 }
+            
+            return compositionSoFar
+        }
+        
+        if excludeListComposition.all > 0 { return false }
+        if excludeListComposition.no > 0 { return true }
+        if excludeListComposition.match == 0 { return true }
+     
+        let willConsumeListComposition: ExcludeListComposition = consumer.willConsume.reduce(ExcludeListComposition(0,0,0)) { (compositionSoFar, excludeEvent) -> ExcludeListComposition in
+            
+            var compositionSoFar = compositionSoFar
+            
+            if excludeEvent is NoEvent.Type { compositionSoFar.no = compositionSoFar.no + 1 }
+            if excludeEvent is AllEvent.Type { compositionSoFar.all = compositionSoFar.all + 1 }
+            if targetEvent.isKind(of:excludeEvent) { compositionSoFar.match = compositionSoFar.match + 1 }
+            
+            return compositionSoFar
+        }
+        
+        if willConsumeListComposition.match > 0 { return true }
+        if willConsumeListComposition.all > 0 { return true }
+        if willConsumeListComposition.no > 0 { return false }
+        
         return false
     }
 }
