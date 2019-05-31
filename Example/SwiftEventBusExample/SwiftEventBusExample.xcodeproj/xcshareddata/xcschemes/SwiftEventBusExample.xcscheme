@@ -47,11 +47,6 @@
                BlueprintName = "SwiftEventBusTests"
                ReferencedContainer = "container:SwiftEventBusExample.xcodeproj">
             </BuildableReference>
-            <SkippedTests>
-               <Test
-                  Identifier = "EventBusTests/testDidConsumeIsDispatchedAfterEventConsumedForOneConsumer()">
-               </Test>
-            </SkippedTests>
          </TestableReference>
       </Testables>
       <MacroExpansion>

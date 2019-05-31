@@ -47,41 +47,23 @@ public class EventBus {
 
             if matchConsumerAndEvent(consumer,event) {
 
-                let group = DispatchGroup()  // what's this dispatch group for?
-                group.enter()
-                consumer.consume(event)
-
+                // This DispatchGroup is used to allow dispatch() to return before DidConsumeEvent is dispathed.
+                // This allows more accuarate tests to be written.  For eg:
                 
+                // ExcludeNoneStubEventConsumer does not need to exlude DidConsumeEvent, which it would need to do
+                // to succesfully test whether the NoEvent on it's exlude list is working properly.
+                let group = DispatchGroup()
                 
                 if event is DidConsumeEvent == false {
                     
                     let didConsumerEvent = DidConsumeEvent(sourceConsumer: consumer, sourceEvent: event)
-                    dispatch(didConsumerEvent)
+                    group.notify(queue: .main) { [weak self] in self?.dispatch(didConsumerEvent) }
                 }
                 
+                group.enter()
+                consumer.consume(event)
                 group.leave()
             }
-         
-            //       let didNotConsumerEvent = makeDidConsumeEvent(consumer, event)
-            
-
-        //    let didNotConsumerEvent = makeDidConsumeEvent(consumer, event)
-
-                //makeDidConsumeEvent(consumer, event)
-
-
-          //  let consumerType = DidConsumeEvent<EventConsumer>
-
-			//if event is DidConsumeEvent<consumer.Type> == false {
-
-//                let didNotConsumerEvent = DidConsumeEvent(sourceConsumer: consumer, sourceEvent: event)
-//
-//                group?.notify(queue: .main) {
-//                    [weak self] in
-//                    self?.dispatch(didNotConsumerEvent)
-//                }
-			//}
-
         }
     }
 
@@ -104,6 +86,7 @@ public class EventBus {
         let excludeListComposition: ExcludeListComposition = consumer.excludeList.reduce(ExcludeListComposition(0,0,0)) { (compositionSoFar, excludeEvent) -> ExcludeListComposition in
             
             var compositionSoFar = compositionSoFar
+            
             if excludeEvent is NoEvent.Type { compositionSoFar.no = compositionSoFar.no + 1 }
             if excludeEvent is AllEvent.Type { compositionSoFar.all = compositionSoFar.all + 1 }
             if targetEvent.isKind(of:excludeEvent) { compositionSoFar.match = compositionSoFar.match + 1 }
@@ -113,7 +96,7 @@ public class EventBus {
         
         if excludeListComposition.all > 0 { return false }
         if excludeListComposition.no > 0 { return true }
-        if excludeListComposition.match == 0 { return true }
+        if excludeListComposition.match > 0 { return false }
      
         let willConsumeListComposition: ExcludeListComposition = consumer.willConsume.reduce(ExcludeListComposition(0,0,0)) { (compositionSoFar, excludeEvent) -> ExcludeListComposition in
             

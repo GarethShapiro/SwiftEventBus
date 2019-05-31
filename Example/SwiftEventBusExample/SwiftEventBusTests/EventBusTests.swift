@@ -25,7 +25,14 @@ class EventBusTests: XCTestCase {
         stubEventBus.dispatch(stubEvent)
 
         XCTAssertTrue(stubEventConsumer.consumeWasCalled, "EventConsumer.consume was not called.")
-        XCTAssertTrue(stubEventConsumer.consumeCalledWith is StubEvent, "EventConsumer.consume was not called with the correct Event : \(stubEvent.self)")
+        
+        guard let targetEvent = stubEventConsumer.consumeCalledWith else {
+            
+            XCTAssertFail()
+            return
+        }
+        
+        XCTAssertTrue(targetEvent.isEqual(stubEvent), "EventConsumer.consume was not called with the correct Event : \(stubEvent.self)")
     }
 
     func testConsumeMethodWithIncorrectEvent() {
@@ -89,10 +96,7 @@ class EventBusTests: XCTestCase {
                 return
             }
 
-/*
-            XCTAssertEqual(didConsumeEvent.sourceEvent.Type, stubEvent.Type,"Unexpected DidConsumeEvent.sourceEvent : \(didConsumeEvent.sourceEvent.self)")
-*/
-
+            XCTAssertTrue(didConsumeEvent.sourceEvent.isEqual(stubEvent), "Unexpected DidConsumeEvent.sourceEvent : \(didConsumeEvent.sourceEvent.self)")
 
         }
 
