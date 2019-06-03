@@ -197,7 +197,7 @@ func check<T>(_ event: T, consumedBy consumer: TestableEventConsumer) -> Bool {
 
     guard consumer.consumeWasCalled else { return false }
     guard let eventConsumeCalledWith = consumer.consumeCalledWith else { return false }
-    return eventConsumeCalledWith is T
+    return eventConsumeCalledWith.isEqual(event)
 }
 
 class StubWillConsumeAllEventEventConsumer: TestableEventConsumer {

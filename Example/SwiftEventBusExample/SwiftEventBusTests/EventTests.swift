@@ -35,5 +35,3 @@ class EventTests: XCTestCase {
         XCTAssertEqual(stubPayload.list, targetEvent.payload.list, "Payload on consumed Event differs from the one supplied (2)")
     }
 }
-
-
