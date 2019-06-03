@@ -28,7 +28,7 @@ class EventBusTests: XCTestCase {
         
         guard let targetEvent = stubEventConsumer.consumeCalledWith else {
             
-            XCTAssertFail()
+            XCTFail("EventConsumer.consume was not called with an event.")
             return
         }
         
@@ -49,13 +49,14 @@ class EventBusTests: XCTestCase {
         stubEventBus.dispatch(anotherstubEvent)
 
         XCTAssertFalse(stubEventConsumer.consumeWasCalled, "EventConsumer.consume was unexpectedly called.")
+        XCTAssertNil(stubEventConsumer.consumeCalledWith, "EventConsumer.consume was unexpectedly called with an event.")
     }
 
     func testUnregisteredConsumerDoesNotConsumeEvents() {
 
         // GIVEN an instance of EventBus
         // WHEN an EventConsumer is registered
-        // AND then subsequentlty deregister
+        // AND then subsequentlty deregistered
         // AND an Event the EventConsumer will consume is dispatched on the EventBus
         // THEN the consume method of the EventConsumer will not be called
         let stubEventBus = EventBus()
@@ -68,22 +69,23 @@ class EventBusTests: XCTestCase {
         stubEventBus.dispatch(stubEvent)
 
         XCTAssertFalse(stubEventConsumer.consumeWasCalled, "EventConsumer.consume was unexpectedly called.")
+        XCTAssertNil(stubEventConsumer.consumeCalledWith, "EventConsumer.consume was unexpectedly called with an event.")
     }
 
     func testDidConsumeIsDispatchedAfterEventConsumedForOneConsumer() {
 
         // GIVEN an instance of EventBus
         // WHEN two EventConsumers are registered with it, the first willConsume StubEvents and the second willConsume DidConsumeEvents
-        // AND the stub Event is dispatched on the EventBus
-        // THEN the consume method of the first EventConsumer is called with an instance of the stub event as an arguement
+        // AND the StubEvent is dispatched on the EventBus
+        // THEN the consume method of the first EventConsumer is called with an instance of StubEvent as an arguement
         // AND subsequently the consume method of the second EventConsumer is called with an instance of DidConsumeEvent as an argurment
-        // AND the DidConsumeEvent has references to the original event and original consumer
+        // AND the DidConsumeEvent has references to the StubEvent and other EventConsumer
         let stubEventBus = EventBus()
         let stubEventConsumer = StubEventConsumer()
-        let didConsumeStubEventConsumer = DidConsumeStubEventConsumer<StubEventConsumer>()
+        let didConsumeStubEventConsumer = DidConsumeStubEventConsumer()
 
         let stubEvent = StubEvent()
-        let stubDidConsumeEvent: DidConsumeEvent = DidConsumeEvent(sourceConsumer: stubEventConsumer, sourceEvent: stubEvent)
+        let stubDidConsumeEvent = DidConsumeEvent(sourceConsumer: stubEventConsumer, sourceEvent: stubEvent)
 
         let didConsumeExpectation = XCTestExpectation(description: "DidConsumeEvent not consumed")
 
@@ -97,7 +99,6 @@ class EventBusTests: XCTestCase {
             }
 
             XCTAssertTrue(didConsumeEvent.sourceEvent.isEqual(stubEvent), "Unexpected DidConsumeEvent.sourceEvent : \(didConsumeEvent.sourceEvent.self)")
-
         }
 
         didConsumeStubEventConsumer.wasConsumedBlock = didConsumeEventBlock

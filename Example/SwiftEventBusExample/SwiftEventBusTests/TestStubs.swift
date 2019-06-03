@@ -30,7 +30,7 @@ class StubEventConsumer: TestableEventConsumer {
     }
 }
 
-class DidConsumeStubEventConsumer<U:EventConsumer>: TestableEventConsumer {
+class DidConsumeStubEventConsumer: TestableEventConsumer {
     
     var wasConsumedBlock: (() -> Void)?
     
