@@ -53,12 +53,10 @@ class StubEventWithPayload: NSObject, Event {
     var payload: Payload
 
     init(payload: Payload) {
-        
         self.payload = payload
     }
     
     struct Payload {
-
         var item: Bool
         var list: [String]
     }
