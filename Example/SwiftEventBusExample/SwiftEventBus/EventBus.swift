@@ -49,7 +49,7 @@ public class EventBus {
     * AllEvent is on the consumer's willConsumer list
     *
     **/
-    public func dispatch<T:Event>(_ event: T) {
+    public func dispatch(_ event: Event) {
 
         for consumer in consumerList {
 

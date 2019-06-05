@@ -17,7 +17,7 @@ class TestableEventConsumer: NSObject, EventConsumer {
     var willConsume: [Event.Type] { return [] }
     var excludeList: [Event.Type] { return [] }
 
-    func consume<T>(_ event: T) where T: Event {
+    func consume(_ event: Event) {
             consumeWasCalled = true
             consumeCalledWith = event
     }
@@ -34,7 +34,7 @@ class DidConsumeStubEventConsumer: TestableEventConsumer {
     
     var wasConsumedBlock: (() -> Void)?
     
-    override func consume<T>(_ event: T) where T: Event {
+    override func consume(_ event: Event) {
         super.consume(event)
         wasConsumedBlock?()
     }

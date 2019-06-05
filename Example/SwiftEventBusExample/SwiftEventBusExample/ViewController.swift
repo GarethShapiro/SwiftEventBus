@@ -22,7 +22,7 @@ class ViewController: UIViewController, EventConsumer {
         return [FirstEvent.self]
     }
 
-    func consume<T:Event>(_ event: T) -> Void {
+    func consume(_ event: Event) -> Void {
 
         switch event {
         case is FirstEvent:

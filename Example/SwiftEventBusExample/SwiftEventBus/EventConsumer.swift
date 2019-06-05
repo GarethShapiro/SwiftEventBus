@@ -24,7 +24,7 @@ public protocol EventConsumer: NSObjectProtocol {
      *   This method should not fail when passed an Event not the EventConsumer's registeredEventTypeList.
      *
      **/
-    func consume<T: Event>(_ event: T) -> Void
+    func consume(_ event: Event) -> Void
 
     /**
      *
