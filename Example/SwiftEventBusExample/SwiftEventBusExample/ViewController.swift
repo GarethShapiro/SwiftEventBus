@@ -32,7 +32,7 @@ class ViewController: UIViewController, EventConsumer {
             guard let firstEvent = event as? FirstEvent else { return }
             guard let payload = firstEvent.payload else { return }
 
-            print("The payload that was dispatched with FirstEvent is \(payload) ")
+            print("A payload was dispatched with FirstEvent and the item in payload is \(payload.item) and the list is \(payload.list)")
 
         default:
             print("do not handle this type of event \(event)")

@@ -11,12 +11,9 @@ import SwiftEventBus
 
 class FirstEvent: NSObject, Event {
 
-    let name = "FirstEvent"
-
     var payload: Payload?
 
-    init(payload: Payload) {
-        
+    init(payload: Payload) {        
         self.payload = payload
     }
     
