@@ -47,11 +47,11 @@ public class EventBus {
 
             if matchConsumerAndEvent(consumer,event) {
 
-                // This DispatchGroup is used to allow dispatch() to return before DidConsumeEvent is dispathed.
+                // This DispatchGroup is used to allow dispatch() to return before DidConsumeEvent is dispatched.
                 // This allows more accuarate tests to be written.  For eg:
                 
                 // ExcludeNoneStubEventConsumer does not need to exlude DidConsumeEvent, which it would need to do
-                // to succesfully test whether the NoEvent on it's exlude list is working properly.
+                // to succesfully test whether the NoEvent on it's exclude list is working properly.
                 let group = DispatchGroup()
                 
                 if event is DidConsumeEvent == false {
@@ -75,7 +75,9 @@ public class EventBus {
     * The consumer's exclude list is excluding NoEvent
     * The consumer's exclude does not include the target event type
     *
-	* The event target type is in the consumer's willConsumer list
+    * and then
+    *
+	* The event target type is in the consumer's willConsume list
 	* AllEvent is on the consumer's willConsumer list
     * The consumer's willConsume list does not contain NoEvent
 	* 
