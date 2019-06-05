@@ -44,18 +44,12 @@ class DidConsumeStubEventConsumer: TestableEventConsumer {
     }
 }
 
-class StubEvent: NSObject, Event {
-    public let name = "StubEvent"
-}
-
-class AnotherStubEvent: NSObject, Event {
-    public let name = "AnotherStubEvent"
-}
+class StubEvent: NSObject, Event {}
+class AnotherStubEvent: NSObject, Event {}
+class AlternativeStubEvent: NSObject, Event {}
 
 class StubEventWithPayload: NSObject, Event {
 
-    public let name = "StubEventWithPayload"
-    
     var payload: Payload
 
     init(payload: Payload) {
