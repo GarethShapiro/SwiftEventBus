@@ -79,7 +79,7 @@ class EventConsumerTests: XCTestCase {
 		// AND this Event is an item on its willConsume list
 		// WHEN this Event is dispatched on the EventBus
 		// THEN the EventConsumer does not consume this Event
-		let stubEventConsumer = ExcludeWillConsumeStubEventConsumer()
+		let stubEventConsumer = ExcludeWillConsumeExcludeStubEventConsumer()
 		let eventBus = EventBus()
 		let stubEvent = StubEvent()
 
@@ -116,12 +116,12 @@ class EventConsumerTests: XCTestCase {
         // THEN the EventConsumer does consume this Event
         let stubEventConsumer = ExcludeNotWillConsumeStubEventConsumer()
         let eventBus = EventBus()
-        let anotherStubEvent = AnotherStubEvent()
+        let unrelatedEvent = AlternativeStubEvent()
 
         eventBus.register(stubEventConsumer)
-        eventBus.dispatch(anotherStubEvent)
+        eventBus.dispatch(unrelatedEvent)
 
-        XCTAssertTrue(check(anotherStubEvent, consumedBy: stubEventConsumer) , "EventConsumer.consume was not called or not called with the correct Event : \(anotherStubEvent.self)")
+        XCTAssertFalse(check(unrelatedEvent, consumedBy: stubEventConsumer) , "EventConsumer.consume was unexpectedly consumed : \(unrelatedEvent.self)")
 	}
 
     // AllEvent on exclude list overrides events on willConsume
@@ -138,7 +138,7 @@ class EventConsumerTests: XCTestCase {
         eventBus.register(stubEventConsumer)
         eventBus.dispatch(stubEvent)
 
-        XCTAssertFalse(stubEventConsumer.consumeWasCalled, "EventConsumer.consume was unexpectedly called.")
+        XCTAssertFalse(check(stubEvent, consumedBy: stubEventConsumer) , "EventConsumer.consume was unexpectedly consumed : \(stubEvent.self)")
     }
 
     // AllEvent on exclude list does not intefere with events not on willConsume, they are still not consumed
@@ -147,7 +147,7 @@ class EventConsumerTests: XCTestCase {
         // GIVEN a registered EventConsumer which includes an AllEvent on its excludeList
         // AND also has an Event is on its willConsume list
         // WHEN the event not on the willConsume is dispatched on the EventBus
-        // THEN the EventConsumer does not onsume this Event
+        // THEN the EventConsumer does not consume this Event
         let stubEventConsumer = ExcludeAllStubEventConsumer()
         let eventBus = EventBus()
         let anotherStubEvent = AnotherStubEvent()
@@ -155,7 +155,7 @@ class EventConsumerTests: XCTestCase {
         eventBus.register(stubEventConsumer)
         eventBus.dispatch(anotherStubEvent)
 
-        XCTAssertFalse(stubEventConsumer.consumeWasCalled, "EventConsumer.consume was unexpectedly called.")
+        XCTAssertFalse(check(anotherStubEvent, consumedBy: stubEventConsumer) , "EventConsumer.consume was unexpectedly consumed : \(anotherStubEvent.self)")
     }
 
 	// NoEvent on excludeList results in all events being consumed, regardless of other items on the excludeList
@@ -167,15 +167,15 @@ class EventConsumerTests: XCTestCase {
 		// THEN the EventConsumer does consume this Event
 		let stubEventConsumer = ExcludeNoneStubEventConsumer()
 		let eventBus = EventBus()
-		let stubEvent = StubEvent()
+		let unrelatedEvent = AlternativeStubEvent()
 
 		eventBus.register(stubEventConsumer)
-		eventBus.dispatch(stubEvent)
+		eventBus.dispatch(unrelatedEvent)
 
-		XCTAssertTrue(check(stubEvent, consumedBy: stubEventConsumer) , "EventConsumer.consume was not called or not called with the correct Event : \(stubEvent.self)")
+		XCTAssertTrue(check(unrelatedEvent, consumedBy: stubEventConsumer) , "EventConsumer.consume was not called or not called with the correct Event : \(unrelatedEvent.self)")
 	}
 
-	// NoEvent on excludeList does not intefere with the events on the willConsume list, they are stil consumed
+	// NoEvent on excludeList does not intefere with the events on the willConsume list, they are still consumed
 	func testExcludeNoEventWillStillConsumeEvents() {
 
 		// GIVEN a registered EventConsumer which includes a NoEvent on its excludeList
@@ -221,7 +221,7 @@ class StubWillConsumeNoAndAllEventEventConsumer: TestableEventConsumer {
     }
 }
 
-class ExcludeWillConsumeStubEventConsumer: TestableEventConsumer {
+class ExcludeWillConsumeExcludeStubEventConsumer: TestableEventConsumer {
 
     override var willConsume: [Event.Type] {
         return [StubEvent.self]
