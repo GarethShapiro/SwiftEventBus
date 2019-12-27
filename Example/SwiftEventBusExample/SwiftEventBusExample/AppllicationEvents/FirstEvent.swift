@@ -18,7 +18,6 @@ class FirstEvent: NSObject, Event {
     }
     
     struct Payload {
-
         var item: Bool
         var list: [Int]
     }

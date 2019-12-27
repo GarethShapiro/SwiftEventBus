@@ -7,41 +7,37 @@
 //
 import Foundation
 
-// EventConsumers need to be compared so NSObjectProtocol for the easy win.
+/**
+Any class conforming to `NSObjectProtocol` can be registered with `EventBus` and consume `Event`s
+if it adopts the `EventConsumer` protocol.
+*/
 public protocol EventConsumer: NSObjectProtocol {
 
     /**
-     *
-     *  Containst a list of Event Types an EventConsumer implmentation expects to consume.
-     *  This is a useful place to look when debugging.
-     *
-     **/
+    Contains a list of `Event`s an `EventConsumer` expects to consume.
+    This is a useful place to look when debugging.
+    */
     var willConsume: [Event.Type] { get }
 
     /**
-     *
-     *   A point at which an Event is passed to an EventConsumer to consume.
-     *   This method should not fail when passed an Event not the EventConsumer's registeredEventTypeList.
-     *
-     **/
+     A point at which an `Event` is passed to an `EventConsumer` to consume.
+     This method should not fail when passed an `Event` not the `EventConsumer`'s `willConsume` list.
+
+     - Parameter event: The `Event` to consume.
+     */
     func consume(_ event: Event) -> Void
 
     /**
-     *
-     *	Returns a list of Events an EventConsumer explicity does not consume.
-	 *	These events will be ignored even if they are items on the willConsumer list.
-     *
-     **/
+     Returns a list of `Events` an `EventConsumer` explicity _does not_ consume.
+	 These `Event`s will be ignored even if they are items on the `willConsume` list.
+     */
      var excludeList: [Event.Type] { get }
 }
 
-/**
-*
-* Supply a default value for excludeList, so you don't have to.
-*
-**/
 public extension EventConsumer {
-	
+    /**
+     `excludeList` is an empty array by default, so implementations of `EventConsumer` aren't required to declare one.
+    */
     var excludeList: [Event.Type] {
          return []
     }

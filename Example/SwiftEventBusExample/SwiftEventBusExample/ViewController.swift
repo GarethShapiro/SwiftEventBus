@@ -11,13 +11,13 @@ import SwiftEventBus
 
 class ViewController: UIViewController, EventConsumer {
 
+    // MARK: - Lifecycle
     override func viewDidLoad() {
-        
         super.viewDidLoad()
         view?.backgroundColor = .blue
     }
 
-    // EventConsumer
+    // MARK: - EventConsumer
     var willConsume : [Event.Type] {
         return [FirstEvent.self]
     }

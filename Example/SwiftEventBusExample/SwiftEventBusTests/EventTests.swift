@@ -22,8 +22,8 @@ class EventTests: XCTestCase {
 
         let stubEventBus = EventBus()
         let stubEventConsumer = StubEventConsumer()
-        stubEventBus.register(stubEventConsumer)
 
+        stubEventBus.register(stubEventConsumer)
         stubEventBus.dispatch(stubEvent)
 
         guard let targetEvent = stubEventConsumer.consumeCalledWith as? StubEventWithPayload else {

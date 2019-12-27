@@ -7,18 +7,21 @@
 //
 import Foundation
 
+ /**
+ The `EventBus` class mediates a register of `EventConsumer`s and also provides
+ a mechanism to dispatch `Event`s to them.
+ */
 public class EventBus {
 
     typealias ExcludeListComposition = (no: Int,all: Int,match: Int)
-    
+
     public init() {}
     private lazy var consumerList = [EventConsumer]()
     
     /**
-    *
-    * EventConsumers register to consume events.
-    *
-    **/
+     `EventConsumer`s register with an `EventBus` in order to to consume `Event`s.
+     - Parameter consumer: The `EventConsumer` being registered.
+    */
     public func register(_ consumer: EventConsumer) {
         if consumerList.contains(where: { listItem in listItem.isEqual(consumer) }) == false {
             consumerList.append(consumer)
@@ -26,29 +29,29 @@ public class EventBus {
     }
 
     /**
-    *
-    * Allow EventConsumers to stop consuming events.
-    *
-    **/
+     Should `EventConsumer`s wish to stop consuming `Event`s they are deregistered using this method.
+     - Parameter consumer: The `EventConsumer` being deregistered.
+    */
     public func deregister(_ consumer: EventConsumer) {
         consumerList = consumerList.filter({ listItem in listItem.isEqual(consumer) == false })
     }
-    
+
     /**
-    *
-    * Provides the application with the abiilty to dispatch events to consumers.
-    *
-    * EventConsumers will consume an Event if (in order):
-    *
-    * The consumer's willConsume list does not contain NoEvent
-    * The consumer's exclude list is not excluding AllEvent
-    * The consumer's exclude list is excluding NoEvent
-    * The consumer's exclude does not include the target event type
-    *
-    * The event target type is in the consumer's willConsume list
-    * AllEvent is on the consumer's willConsumer list
-    *
-    **/
+     This method provides the application with the ability to dispatch `Event`s to `EventConsumer`s.
+     - Parameter event: The `Event` to be dispatched.
+
+     `EventConsumer`s will consume an `Event` if _all_ of the following are true :
+
+     - The `EventConsumer`'s `willConsume` list does not contain `NoEvent`.
+     - The `EventConsumer`'s `excludeList` does not contain `AllEvent`.
+     - The `EventConsumer`'s `excludeList` does contain `NoEvent`.
+     - The `EventConsumer`'s `excludeList` does not contain the target event type.
+
+     and _at least one_ of the following is true :
+
+     - The `EventConsumer`'s `willConsume` does contain the target event type.
+     - The `EventConsumer`'s `willConsume` does contain `AllEvent`.
+     */
     public func dispatch(_ event: Event) {
 
         for consumer in consumerList {
@@ -60,7 +63,7 @@ public class EventBus {
                 // This DispatchGroup is used to allow dispatch() to return before DidConsumeEvent is dispatched.
                 // This allows more accuarate tests to be written.  For eg:
                 
-                // ExcludeNoneStubEventConsumer does not need to exlude DidConsumeEvent, which it would need to do
+                // ExcludeNoneStubEventConsumer does not need to exclude DidConsumeEvent, which it would need to do
                 // to succesfully test whether the NoEvent on it's exclude list is working properly.
                 let group = DispatchGroup()
                 
@@ -76,7 +79,12 @@ public class EventBus {
             }
         }
     }
-    
+
+    /**
+    Contains the business logic used to determine whether a specific `Event` should be consumed by a specific `EventConsumer`.
+     - Parameter consumer: An `EventConsumer`.
+     - Parameter targetEvent: The `Event`.
+    */
     private func matchConsumerAndEvent(_ consumer: EventConsumer, _ targetEvent: Event) -> Bool {
 
         let excludeListComposition: ExcludeListComposition = consumer.excludeList.reduce(ExcludeListComposition(0,0,0)) { (compositionSoFar, excludeEvent) -> ExcludeListComposition in

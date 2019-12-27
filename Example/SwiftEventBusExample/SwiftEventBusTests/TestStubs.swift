@@ -18,8 +18,8 @@ class TestableEventConsumer: NSObject, EventConsumer {
     var excludeList: [Event.Type] { return [] }
 
     func consume(_ event: Event) {
-            consumeWasCalled = true
-            consumeCalledWith = event
+        consumeWasCalled = true
+        consumeCalledWith = event
     }
 }
 

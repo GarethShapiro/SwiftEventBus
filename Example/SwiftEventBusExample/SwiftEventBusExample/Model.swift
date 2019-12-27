@@ -16,7 +16,6 @@ struct Model {
     func doSomething() {
 
         // do something
-        // ..
 
         // and afterwards dispatch an event
         dispatchFirstEvent()
