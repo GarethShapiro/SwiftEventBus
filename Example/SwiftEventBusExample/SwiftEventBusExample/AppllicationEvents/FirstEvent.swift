@@ -11,9 +11,11 @@ import SwiftEventBus
 
 class FirstEvent: NSObject, Event {
 
+    let eventType: EventType = .system
+    
     var payload: Payload?
 
-    init(payload: Payload) {        
+    init(payload: Payload) {
         self.payload = payload
     }
     
