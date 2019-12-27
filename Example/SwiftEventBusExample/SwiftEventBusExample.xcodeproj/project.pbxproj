@@ -20,7 +20,6 @@
 		6ACA309321DA7EB200E78D56 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ACA309221DA7EB200E78D56 /* AppDelegate.swift */; };
 		6ACA309521DA7EB200E78D56 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ACA309421DA7EB200E78D56 /* ViewController.swift */; };
 		6ACA309A21DA7EB400E78D56 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6ACA309921DA7EB400E78D56 /* Assets.xcassets */; };
-		6ACA30A821DA7EB400E78D56 /* SwiftEventBusExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ACA30A721DA7EB400E78D56 /* SwiftEventBusExampleTests.swift */; };
 		6AEE17BB2201BACF004F7A58 /* FirstEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AEE17BA2201BACF004F7A58 /* FirstEvent.swift */; };
 		6AEE17BE2201BF62004F7A58 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AEE17BC2201BF62004F7A58 /* LaunchScreen.xib */; };
 		6AEE17C12201BFC6004F7A58 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AEE17C02201BFC6004F7A58 /* Model.swift */; };
@@ -50,13 +49,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 6A3276862201FB7700CBE782;
 			remoteInfo = SwiftEventBus;
-		};
-		6ACA30A421DA7EB400E78D56 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 6ACA308721DA7EB200E78D56 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 6ACA308E21DA7EB200E78D56;
-			remoteInfo = SwiftEventBusExample;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -88,9 +80,6 @@
 		6ACA309421DA7EB200E78D56 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		6ACA309921DA7EB400E78D56 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6ACA309E21DA7EB400E78D56 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6ACA30A321DA7EB400E78D56 /* SwiftEventBusExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftEventBusExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		6ACA30A721DA7EB400E78D56 /* SwiftEventBusExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftEventBusExampleTests.swift; sourceTree = "<group>"; };
-		6ACA30A921DA7EB400E78D56 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6AEE17BA2201BACF004F7A58 /* FirstEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstEvent.swift; sourceTree = "<group>"; };
 		6AEE17BD2201BF62004F7A58 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		6AEE17C02201BFC6004F7A58 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
@@ -123,13 +112,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				6A32769C2201FB7700CBE782 /* SwiftEventBus.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		6ACA30A021DA7EB400E78D56 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -172,7 +154,6 @@
 			isa = PBXGroup;
 			children = (
 				6ACA309121DA7EB200E78D56 /* SwiftEventBusExample */,
-				6ACA30A621DA7EB400E78D56 /* SwiftEventBusExampleTests */,
 				6A3276882201FB7700CBE782 /* SwiftEventBus */,
 				6A3276952201FB7700CBE782 /* SwiftEventBusTests */,
 				6ACA309021DA7EB200E78D56 /* Products */,
@@ -183,7 +164,6 @@
 			isa = PBXGroup;
 			children = (
 				6ACA308F21DA7EB200E78D56 /* SwiftEventBusExample.app */,
-				6ACA30A321DA7EB400E78D56 /* SwiftEventBusExampleTests.xctest */,
 				6A3276872201FB7700CBE782 /* SwiftEventBus.framework */,
 				6A32768F2201FB7700CBE782 /* SwiftEventBusTests.xctest */,
 			);
@@ -199,15 +179,6 @@
 				6AEE17C02201BFC6004F7A58 /* Model.swift */,
 			);
 			path = SwiftEventBusExample;
-			sourceTree = "<group>";
-		};
-		6ACA30A621DA7EB400E78D56 /* SwiftEventBusExampleTests */ = {
-			isa = PBXGroup;
-			children = (
-				6ACA30A721DA7EB400E78D56 /* SwiftEventBusExampleTests.swift */,
-				6ACA30A921DA7EB400E78D56 /* Info.plist */,
-			);
-			path = SwiftEventBusExampleTests;
 			sourceTree = "<group>";
 		};
 		6AEE17B92201BAAC004F7A58 /* AppllicationEvents */ = {
@@ -301,24 +272,6 @@
 			productReference = 6ACA308F21DA7EB200E78D56 /* SwiftEventBusExample.app */;
 			productType = "com.apple.product-type.application";
 		};
-		6ACA30A221DA7EB400E78D56 /* SwiftEventBusExampleTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 6ACA30AF21DA7EB400E78D56 /* Build configuration list for PBXNativeTarget "SwiftEventBusExampleTests" */;
-			buildPhases = (
-				6ACA309F21DA7EB400E78D56 /* Sources */,
-				6ACA30A021DA7EB400E78D56 /* Frameworks */,
-				6ACA30A121DA7EB400E78D56 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				6ACA30A521DA7EB400E78D56 /* PBXTargetDependency */,
-			);
-			name = SwiftEventBusExampleTests;
-			productName = SwiftEventBusExampleTests;
-			productReference = 6ACA30A321DA7EB400E78D56 /* SwiftEventBusExampleTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -342,11 +295,6 @@
 						CreatedOnToolsVersion = 10.1;
 						LastSwiftMigration = 1020;
 					};
-					6ACA30A221DA7EB400E78D56 = {
-						CreatedOnToolsVersion = 10.1;
-						LastSwiftMigration = 1020;
-						TestTargetID = 6ACA308E21DA7EB200E78D56;
-					};
 				};
 			};
 			buildConfigurationList = 6ACA308A21DA7EB200E78D56 /* Build configuration list for PBXProject "SwiftEventBusExample" */;
@@ -363,7 +311,6 @@
 			projectRoot = "";
 			targets = (
 				6ACA308E21DA7EB200E78D56 /* SwiftEventBusExample */,
-				6ACA30A221DA7EB400E78D56 /* SwiftEventBusExampleTests */,
 				6A3276862201FB7700CBE782 /* SwiftEventBus */,
 				6A32768E2201FB7700CBE782 /* SwiftEventBusTests */,
 			);
@@ -391,13 +338,6 @@
 			files = (
 				6AEE17BE2201BF62004F7A58 /* LaunchScreen.xib in Resources */,
 				6ACA309A21DA7EB400E78D56 /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		6ACA30A121DA7EB400E78D56 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -438,14 +378,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6ACA309F21DA7EB400E78D56 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6ACA30A821DA7EB400E78D56 /* SwiftEventBusExampleTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -463,11 +395,6 @@
 			isa = PBXTargetDependency;
 			target = 6A3276862201FB7700CBE782 /* SwiftEventBus */;
 			targetProxy = 6A32769A2201FB7700CBE782 /* PBXContainerItemProxy */;
-		};
-		6ACA30A521DA7EB400E78D56 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 6ACA308E21DA7EB200E78D56 /* SwiftEventBusExample */;
-			targetProxy = 6ACA30A421DA7EB400E78D56 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -727,46 +654,6 @@
 			};
 			name = Release;
 		};
-		6ACA30B021DA7EB400E78D56 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = SwiftEventBusExampleTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.garethshapiro.swifteventbus.example.SwiftEventBusExampleTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftEventBusExample.app/SwiftEventBusExample";
-			};
-			name = Debug;
-		};
-		6ACA30B121DA7EB400E78D56 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = SwiftEventBusExampleTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.garethshapiro.swifteventbus.example.SwiftEventBusExampleTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftEventBusExample.app/SwiftEventBusExample";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -802,15 +689,6 @@
 			buildConfigurations = (
 				6ACA30AD21DA7EB400E78D56 /* Debug */,
 				6ACA30AE21DA7EB400E78D56 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		6ACA30AF21DA7EB400E78D56 /* Build configuration list for PBXNativeTarget "SwiftEventBusExampleTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				6ACA30B021DA7EB400E78D56 /* Debug */,
-				6ACA30B121DA7EB400E78D56 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
