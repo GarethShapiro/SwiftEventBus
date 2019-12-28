@@ -15,24 +15,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var eventBus: EventBus
 
     lazy var model: Model = Model(eventBus: eventBus)
-    var viewController: ViewController
+    var flowController: FlowController
 
     override init() {
-
         eventBus = EventBus()
-        viewController = ViewController()
+        flowController = FlowController()
     }
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication,
+                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
-        eventBus.register(viewController)
+        eventBus.register(flowController)
 
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = viewController
+        window?.rootViewController = flowController
         window?.backgroundColor = .white
         window?.makeKeyAndVisible()
 
-        model.doSomething()
+        model.initialiseApplication()
 
         return true
     }
