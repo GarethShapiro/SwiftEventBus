@@ -40,42 +40,35 @@ public class EventBus {
      This method provides the application with the ability to dispatch `Event`s to `EventConsumer`s.
      - Parameter event: The `Event` to be dispatched.
 
-     `EventConsumer`s will consume an `Event` if _all_ of the following are true :
+     `EventConsumer`s will consume an `Event` if any of the following are true
 
+     - The `EventConsumer`'s `excludeList` contains `NoEvent`.
      - The `EventConsumer`'s `willConsume` list does not contain `NoEvent`.
+     - The `EventConsumer`'s `willConsume` contains `AllEvent`.
+
+     or all of the folowing are true
+
+
      - The `EventConsumer`'s `excludeList` does not contain `AllEvent`.
-     - The `EventConsumer`'s `excludeList` does contain `NoEvent`.
      - The `EventConsumer`'s `excludeList` does not contain the target event type.
-
-     and _at least one_ of the following is true :
-
      - The `EventConsumer`'s `willConsume` does contain the target event type.
-     - The `EventConsumer`'s `willConsume` does contain `AllEvent`.
      */
-    public func dispatch(_ event: Event) {
+    public func dispatch(_ targetEvent: Event) {
 
         for consumer in consumerList {
 
-            guard consumer.willConsume.contains(where: { event in event is NoEvent.Type }) == false else { break }
+            if matchConsumerAndEvent(consumer,targetEvent) {
 
-            if matchConsumerAndEvent(consumer,event) {
-
-                // This DispatchGroup is used to allow dispatch() to return before DidConsumeEvent is dispatched.
-                // This allows more accuarate tests to be written.  For eg:
-                
-                // ExcludeNoneStubEventConsumer does not need to exclude DidConsumeEvent, which it would need to do
-                // to succesfully test whether the NoEvent on it's exclude list is working properly.
                 let group = DispatchGroup()
-                
-                if event is DidConsumeEvent == false {
-                    
-                    let didConsumerEvent = DidConsumeEvent(sourceConsumer: consumer, sourceEvent: event)
-                    group.notify(queue: .main) { [weak self] in self?.dispatch(didConsumerEvent) }
-                }
-                
-                group.enter()
-                consumer.consume(event)
-                group.leave()
+
+                   if targetEvent is DidConsumeEvent == false {
+                       let didConsumerEvent = DidConsumeEvent(sourceConsumer: consumer, sourceEvent: targetEvent)
+                       group.notify(queue: .main) { [weak self] in self?.dispatch(didConsumerEvent) }
+                   }
+
+                  group.enter()
+                  consumer.consume(targetEvent)
+                  group.leave()
             }
         }
     }
@@ -87,35 +80,14 @@ public class EventBus {
     */
     private func matchConsumerAndEvent(_ consumer: EventConsumer, _ targetEvent: Event) -> Bool {
 
-        let excludeListComposition: ExcludeListComposition = consumer.excludeList.reduce(ExcludeListComposition(0,0,0)) { (compositionSoFar, excludeEvent) -> ExcludeListComposition in
-            
-            var compositionSoFar = compositionSoFar
-            
-            if excludeEvent is NoEvent.Type { compositionSoFar.no = compositionSoFar.no + 1 }
-            if excludeEvent is AllEvent.Type { compositionSoFar.all = compositionSoFar.all + 1 }
-            if targetEvent.isKind(of:excludeEvent) { compositionSoFar.match = compositionSoFar.match + 1 }
-            
-            return compositionSoFar
-        }
-        
-        if excludeListComposition.all > 0 { return false }
-        if excludeListComposition.no > 0 { return true }
-        if excludeListComposition.match > 0 { return false }
-     
-        // NoEvent on willConsume is checked in dispatch() before the call to matchConsumerAndEvent() and not repeated here.
-        let willConsumeListComposition: ExcludeListComposition = consumer.willConsume.reduce(ExcludeListComposition(0,0,0)) { (compositionSoFar, excludeEvent) -> ExcludeListComposition in
-            
-            var compositionSoFar = compositionSoFar
-            
-            if excludeEvent is AllEvent.Type { compositionSoFar.all = compositionSoFar.all + 1 }
-            if targetEvent.isKind(of:excludeEvent) { compositionSoFar.match = compositionSoFar.match + 1 }
-            
-            return compositionSoFar
-        }
-        
-        if willConsumeListComposition.match > 0 { return true }
-        if willConsumeListComposition.all > 0 { return true }
-        
-        return false
+        if consumer.excludeList.contains(where: { consumerEvent in consumerEvent is NoEvent.Type }) == true { return true }
+        if consumer.willConsume.contains(where: { consumerEvent in consumerEvent is NoEvent.Type }) == true { return false }
+        if consumer.willConsume.contains(where: { consumerEvent in consumerEvent is AllEvent.Type }) == true { return true }
+
+        if consumer.excludeList.contains(where: { consumerEvent in consumerEvent is AllEvent.Type }) == true { return false }
+        if consumer.excludeList.contains(where: { consumerEvent in targetEvent.isKind(of:consumerEvent) }) == true { return false }
+        if consumer.willConsume.contains(where: { consumerEvent in targetEvent.isKind(of:consumerEvent) }) == false { return false }
+
+        return true
     }
 }
