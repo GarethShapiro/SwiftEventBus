@@ -24,14 +24,11 @@ class EventBusTests: XCTestCase {
         stubEventBus.register(stubEventConsumer)
         stubEventBus.dispatch(stubEvent)
 
-        XCTAssertTrue(stubEventConsumer.consumeWasCalled, "EventConsumer.consume was not called.")
-        
         guard let targetEvent = stubEventConsumer.consumeCalledWith else {
-            
-            XCTFail("EventConsumer.consume was not called with an event.")
+            XCTFail("EventConsumer.consume was not called")
             return
         }
-        
+
         XCTAssertTrue(targetEvent.isEqual(stubEvent), "EventConsumer.consume was not called with the correct Event : \(stubEvent.self)")
     }
 
@@ -48,7 +45,6 @@ class EventBusTests: XCTestCase {
         stubEventBus.register(stubEventConsumer)
         stubEventBus.dispatch(anotherstubEvent)
 
-        XCTAssertFalse(stubEventConsumer.consumeWasCalled, "EventConsumer.consume was unexpectedly called.")
         XCTAssertNil(stubEventConsumer.consumeCalledWith, "EventConsumer.consume was unexpectedly called with an event.")
     }
 
@@ -68,7 +64,6 @@ class EventBusTests: XCTestCase {
 
         stubEventBus.dispatch(stubEvent)
 
-        XCTAssertFalse(stubEventConsumer.consumeWasCalled, "EventConsumer.consume was unexpectedly called.")
         XCTAssertNil(stubEventConsumer.consumeCalledWith, "EventConsumer.consume was unexpectedly called with an event.")
     }
 
@@ -108,7 +103,6 @@ class EventBusTests: XCTestCase {
 
         stubEventBus.dispatch(stubEvent)
 
-        XCTAssertTrue(stubEventConsumer.consumeWasCalled, "EventConsumer.consume was not called.")
         XCTAssertTrue(stubEventConsumer.consumeCalledWith is StubEvent, "EventConsumer.consume was not called with the correct Event : \(stubEvent.self)")
 
         wait(for: [didConsumeExpectation], timeout: 0.5)

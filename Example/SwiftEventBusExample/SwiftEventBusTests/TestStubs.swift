@@ -11,14 +11,12 @@ import SwiftEventBus
 
 class TestableEventConsumer: NSObject, EventConsumer {
 
-    var consumeWasCalled = false
     var consumeCalledWith: Event?
 
     var willConsume: [Event.Type] { return [] }
     var excludeList: [Event.Type] { return [] }
 
     func consume(_ event: Event) {
-        consumeWasCalled = true
         consumeCalledWith = event
     }
 }
