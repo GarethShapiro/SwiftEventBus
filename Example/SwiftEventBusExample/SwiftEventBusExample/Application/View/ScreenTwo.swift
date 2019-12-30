@@ -48,29 +48,25 @@ class ScreenTwo: UIViewController {
         screenOneButton.setTitle("Go to Screen One", for: .normal)
         screenOneButton.sizeToFit()
         screenOneButton.addTarget(self, action: #selector(handleScreenOneButtonTap), for: .touchUpInside)
-
         view.addSubview(screenOneButton)
 
         screenThreeButton.setTitle("Go to Screen Three", for: .normal)
         screenThreeButton.sizeToFit()
         screenThreeButton.addTarget(self, action: #selector(handleScreenThreeButtonTap), for: .touchUpInside)
-
         view.addSubview(screenThreeButton)
     }
 
     private func setupLayoutConstraints() {
-
         screenOneButton.translatesAutoresizingMaskIntoConstraints = false
         screenOneButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 0).isActive = true
         screenOneButton.safeAreaLayoutGuide.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 10).isActive = true
 
         screenThreeButton.translatesAutoresizingMaskIntoConstraints = false
-
         screenThreeButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 0).isActive = true
         screenThreeButton.safeAreaLayoutGuide.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
     }
 
-    // MARK: - Events
+    // MARK: - Button
     @objc func handleScreenOneButtonTap(sender: UIControl) {
         let event = NavigationEvent(destination: .screenOne)
         eventBus.dispatch(event)

@@ -56,7 +56,7 @@ class ScreenOne: UIViewController {
         button.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0).isActive = true
     }
 
-    // MARK: - Button Events
+    // MARK: - Button
     @objc func handleButtonTap(sender: UIControl) {
         let event = NavigationEvent(destination: .screenTwo)
         eventBus.dispatch(event)

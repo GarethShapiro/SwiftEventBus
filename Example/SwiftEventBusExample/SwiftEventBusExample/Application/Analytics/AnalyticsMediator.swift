@@ -17,9 +17,8 @@ final class AnalyticsMediator: NSObject, EventConsumer {
     }
 
     func consume(_ event: Event) {
-        if let pageViewEvent = event as? PageViewEvent {
-            print("[AnalyticsMediator] Send PageView anaytics: [\(pageViewEvent.payload.time.timeIntervalSince1970)] : \(pageViewEvent.payload.name)")
-        }
+        guard let pageViewEvent = event as? PageViewEvent else { return }
+        print("[AnalyticsMediator] Send PageView anaytics: [\(pageViewEvent.payload.time.timeIntervalSince1970)] : \(pageViewEvent.payload.name)")
     }
 
     override var debugDescription: String {

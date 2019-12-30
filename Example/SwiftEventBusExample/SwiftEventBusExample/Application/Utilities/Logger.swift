@@ -17,8 +17,7 @@ final class Logger: NSObject, EventConsumer {
     }
 
     func consume(_ event: Event) {
-        if let didConsumeEvent = event as? DidConsumeEvent {
-            print("[Logger] \(String(reflecting: didConsumeEvent.sourceConsumer)) consumed \(String(reflecting: didConsumeEvent.sourceEvent))")
-        }
+        guard let didConsumeEvent = event as? DidConsumeEvent else { return }
+        print("[Logger] \(String(reflecting: didConsumeEvent.sourceConsumer)) consumed \(String(reflecting: didConsumeEvent.sourceEvent))")
     }
 }

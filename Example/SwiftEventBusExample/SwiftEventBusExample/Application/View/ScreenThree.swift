@@ -50,7 +50,7 @@ class ScreenThree: UIViewController {
 
         okButton.setTitle("OK", for: .normal)
         okButton.sizeToFit()
-        okButton.addTarget(self, action: #selector(handleOkButtonTap), for: .touchUpInside)
+        okButton.addTarget(self, action: #selector(handleOkButtonPress), for: .touchUpInside)
 
         view.addSubview(okButton)
     }
@@ -66,8 +66,8 @@ class ScreenThree: UIViewController {
         okButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0).isActive = true
     }
 
-    // MARK: - Events
-    @objc func handleOkButtonTap(sender: UIControl) {
+    // MARK: - Button
+    @objc func handleOkButtonPress(sender: UIControl) {
         let event = NavigationEvent(destination: .screenTwo)
         eventBus.dispatch(event)
     }

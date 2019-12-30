@@ -36,7 +36,6 @@ final class FlowController: UIViewController, EventConsumer {
 
     // MARK: - UI
     private func createUI() {
-
         userRewardCTA.setTitle("Click here to win a prize", for: .normal)
         userRewardCTA.backgroundColor = .darkGray
         userRewardCTA.addTarget(self, action: #selector(handleUserRewardCTATap), for: .touchUpInside)
@@ -72,7 +71,6 @@ final class FlowController: UIViewController, EventConsumer {
 
     // MARK: - Prize UI
     private func hidePrizeUI() {
-
         view.layoutIfNeeded()
         prizeUIHeightConstraint?.constant = 0
 
@@ -82,7 +80,6 @@ final class FlowController: UIViewController, EventConsumer {
     }
 
     private func showPrizeUI() {
-
         view.layoutIfNeeded()
         prizeUIHeightConstraint?.constant = 100
 
