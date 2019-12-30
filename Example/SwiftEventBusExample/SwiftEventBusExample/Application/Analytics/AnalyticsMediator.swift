@@ -9,7 +9,7 @@
 import Foundation
 import SwiftEventBus
 
-class AnalyticsMediator: NSObject, EventConsumer {
+final class AnalyticsMediator: NSObject, EventConsumer {
 
     // MARK: - EventConsumer
     var willConsume: [Event.Type] {

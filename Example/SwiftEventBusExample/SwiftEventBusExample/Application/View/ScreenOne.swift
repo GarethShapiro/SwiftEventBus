@@ -28,15 +28,11 @@ class ScreenOne: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         createUI()
-    }
-
-    override func willMove(toParent parent: UIViewController?) {
-        super.willMove(toParent: parent)
         setupLayoutConstraints()
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         let payload = PageViewEvent.Payload(name: "Screen One", time: Date(timeIntervalSinceNow: 0))
         let event = PageViewEvent(with: payload)
         eventBus.dispatch(event)
@@ -49,7 +45,7 @@ class ScreenOne: UIViewController {
 
         button.setTitle("Go to Screen Two", for: .normal)
         button.sizeToFit()
-        button.addTarget(self, action: #selector(handleButtonPress), for: .touchUpInside)
+        button.addTarget(self, action: #selector(handleButtonTap), for: .touchUpInside)
 
         view.addSubview(button)
     }
@@ -60,8 +56,8 @@ class ScreenOne: UIViewController {
         button.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0).isActive = true
     }
 
-    // MARK: - Events
-    @objc func handleButtonPress(sender: UIControl) {
+    // MARK: - Button Events
+    @objc func handleButtonTap(sender: UIControl) {
         let event = NavigationEvent(destination: .screenTwo)
         eventBus.dispatch(event)
     }

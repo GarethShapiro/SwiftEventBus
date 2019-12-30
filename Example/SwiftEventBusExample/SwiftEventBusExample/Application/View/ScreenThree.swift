@@ -30,17 +30,13 @@ class ScreenThree: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         createUI()
-    }
-
-    override func willMove(toParent parent: UIViewController?) {
-        super.willMove(toParent: parent)
         setupLayoutConstraints()
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        let payload = PageViewEvent.Payload(name: "Screen Three", time: Date(timeIntervalSinceNow: 0))
-        let event = PageViewEvent(with: payload)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let payload = UserRewardPageViewEvent.Payload(name: "Screen Three", time: Date(timeIntervalSinceNow: 0))
+        let event = UserRewardPageViewEvent(with: payload)
         eventBus.dispatch(event)
     }
 
@@ -54,7 +50,7 @@ class ScreenThree: UIViewController {
 
         okButton.setTitle("OK", for: .normal)
         okButton.sizeToFit()
-        okButton.addTarget(self, action: #selector(handleOkButtonPress), for: .touchUpInside)
+        okButton.addTarget(self, action: #selector(handleOkButtonTap), for: .touchUpInside)
 
         view.addSubview(okButton)
     }
@@ -71,12 +67,8 @@ class ScreenThree: UIViewController {
     }
 
     // MARK: - Events
-    @objc func handleOkButtonPress(sender: UIControl) {
+    @objc func handleOkButtonTap(sender: UIControl) {
         let event = NavigationEvent(destination: .screenTwo)
         eventBus.dispatch(event)
-    }
-
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        updateViewConstraints()
     }
 }

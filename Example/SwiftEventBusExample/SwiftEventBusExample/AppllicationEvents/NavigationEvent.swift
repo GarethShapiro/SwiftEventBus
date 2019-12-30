@@ -9,7 +9,7 @@
 import Foundation
 import SwiftEventBus
 
-class NavigationEvent: NSObject, Event {
+final class NavigationEvent: NSObject, Event {
 
     var destination: FlowController.Destination
 

@@ -9,7 +9,7 @@
 import Foundation
 import SwiftEventBus
 
-class Logger: NSObject, EventConsumer {
+final class Logger: NSObject, EventConsumer {
 
     // MARK: - EventConsumer
     var willConsume: [Event.Type] {

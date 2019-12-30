@@ -24,6 +24,7 @@
 		6A5242B223BA40F0007111BC /* ScreenTwo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5242B123BA40F0007111BC /* ScreenTwo.swift */; };
 		6A5242B923BA5C3C007111BC /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5242B823BA5C3C007111BC /* Logger.swift */; };
 		6A5242BB23BA5C4E007111BC /* AnalyticsMediator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5242BA23BA5C4E007111BC /* AnalyticsMediator.swift */; };
+		6A5242C123BA64F3007111BC /* UserRewardEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5242C023BA64F3007111BC /* UserRewardEvents.swift */; };
 		6ACA309321DA7EB200E78D56 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ACA309221DA7EB200E78D56 /* AppDelegate.swift */; };
 		6ACA309A21DA7EB400E78D56 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6ACA309921DA7EB400E78D56 /* Assets.xcassets */; };
 		6AEE17BB2201BACF004F7A58 /* PageViewEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AEE17BA2201BACF004F7A58 /* PageViewEvent.swift */; };
@@ -88,6 +89,7 @@
 		6A5242B123BA40F0007111BC /* ScreenTwo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenTwo.swift; sourceTree = "<group>"; };
 		6A5242B823BA5C3C007111BC /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		6A5242BA23BA5C4E007111BC /* AnalyticsMediator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsMediator.swift; sourceTree = "<group>"; };
+		6A5242C023BA64F3007111BC /* UserRewardEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRewardEvents.swift; sourceTree = "<group>"; };
 		6ACA308F21DA7EB200E78D56 /* SwiftEventBusExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftEventBusExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6ACA309221DA7EB200E78D56 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6ACA309921DA7EB400E78D56 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -176,9 +178,32 @@
 			isa = PBXGroup;
 			children = (
 				6A5242B823BA5C3C007111BC /* Logger.swift */,
-				6A5242BA23BA5C4E007111BC /* AnalyticsMediator.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		6A5242BC23BA611F007111BC /* Analytics */ = {
+			isa = PBXGroup;
+			children = (
+				6A5242BA23BA5C4E007111BC /* AnalyticsMediator.swift */,
+			);
+			path = Analytics;
+			sourceTree = "<group>";
+		};
+		6A5242BF23BA62D7007111BC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6AEE17C02201BFC6004F7A58 /* Model.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		6A5242C223BA65C3007111BC /* Routing */ = {
+			isa = PBXGroup;
+			children = (
+				6A5242A823B8135D007111BC /* FlowController.swift */,
+			);
+			path = Routing;
 			sourceTree = "<group>";
 		};
 		6ACA308621DA7EB200E78D56 = {
@@ -206,7 +231,6 @@
 			children = (
 				6AEE17BF2201BFA2004F7A58 /* Application */,
 				6AEE17B92201BAAC004F7A58 /* AppllicationEvents */,
-				6AEE17C02201BFC6004F7A58 /* Model.swift */,
 			);
 			path = SwiftEventBusExample;
 			sourceTree = "<group>";
@@ -216,6 +240,7 @@
 			children = (
 				6AEE17BA2201BACF004F7A58 /* PageViewEvent.swift */,
 				6A5242A623B80DC5007111BC /* NavigationEvent.swift */,
+				6A5242C023BA64F3007111BC /* UserRewardEvents.swift */,
 			);
 			path = AppllicationEvents;
 			sourceTree = "<group>";
@@ -223,10 +248,12 @@
 		6AEE17BF2201BFA2004F7A58 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				6A5242C223BA65C3007111BC /* Routing */,
+				6A5242BF23BA62D7007111BC /* Model */,
+				6A5242BC23BA611F007111BC /* Analytics */,
 				6A5242B523BA4CD3007111BC /* Utilities */,
 				6A5242AA23B8136F007111BC /* View */,
 				6ACA309221DA7EB200E78D56 /* AppDelegate.swift */,
-				6A5242A823B8135D007111BC /* FlowController.swift */,
 				6ACA309921DA7EB400E78D56 /* Assets.xcassets */,
 				6ACA309E21DA7EB400E78D56 /* Info.plist */,
 				6AEE17BC2201BF62004F7A58 /* LaunchScreen.xib */,
@@ -412,6 +439,7 @@
 				6A5242A723B80DC5007111BC /* NavigationEvent.swift in Sources */,
 				6AEE17BB2201BACF004F7A58 /* PageViewEvent.swift in Sources */,
 				6A5242AC23B81394007111BC /* ScreenOne.swift in Sources */,
+				6A5242C123BA64F3007111BC /* UserRewardEvents.swift in Sources */,
 				6AEE17C12201BFC6004F7A58 /* Model.swift in Sources */,
 				6A5242AE23B813AC007111BC /* ScreenThree.swift in Sources */,
 				6ACA309321DA7EB200E78D56 /* AppDelegate.swift in Sources */,

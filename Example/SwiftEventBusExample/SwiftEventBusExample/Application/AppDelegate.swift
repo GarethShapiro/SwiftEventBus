@@ -43,7 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     private func registerEventConsumers() {
 
-        let eventConsumers: [EventConsumer] = [Logger(), AnalyticsMediator()]
+        let eventConsumers: [EventConsumer] = [model, Logger(), AnalyticsMediator()]
         for consumer in eventConsumers { eventBus.register(consumer) }
     }
 }

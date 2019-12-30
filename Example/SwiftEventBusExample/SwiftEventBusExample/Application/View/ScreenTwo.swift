@@ -30,15 +30,11 @@ class ScreenTwo: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         createUI()
-    }
-
-    override func willMove(toParent parent: UIViewController?) {
-        super.willMove(toParent: parent)
         setupLayoutConstraints()
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         let payload = PageViewEvent.Payload(name: "Screen Two", time: Date(timeIntervalSinceNow: 0))
         let event = PageViewEvent(with: payload)
         eventBus.dispatch(event)
@@ -51,13 +47,13 @@ class ScreenTwo: UIViewController {
 
         screenOneButton.setTitle("Go to Screen One", for: .normal)
         screenOneButton.sizeToFit()
-        screenOneButton.addTarget(self, action: #selector(handleScreenOneButtonPress), for: .touchUpInside)
+        screenOneButton.addTarget(self, action: #selector(handleScreenOneButtonTap), for: .touchUpInside)
 
         view.addSubview(screenOneButton)
 
         screenThreeButton.setTitle("Go to Screen Three", for: .normal)
         screenThreeButton.sizeToFit()
-        screenThreeButton.addTarget(self, action: #selector(handleScreenThreeButtonPress), for: .touchUpInside)
+        screenThreeButton.addTarget(self, action: #selector(handleScreenThreeButtonTap), for: .touchUpInside)
 
         view.addSubview(screenThreeButton)
     }
@@ -75,17 +71,13 @@ class ScreenTwo: UIViewController {
     }
 
     // MARK: - Events
-    @objc func handleScreenOneButtonPress(sender: UIControl) {
+    @objc func handleScreenOneButtonTap(sender: UIControl) {
         let event = NavigationEvent(destination: .screenOne)
         eventBus.dispatch(event)
     }
 
-    @objc func handleScreenThreeButtonPress(sender: UIControl) {
+    @objc func handleScreenThreeButtonTap(sender: UIControl) {
         let event = NavigationEvent(destination: .screenThree)
         eventBus.dispatch(event)
-    }
-
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        updateViewConstraints()
     }
 }
