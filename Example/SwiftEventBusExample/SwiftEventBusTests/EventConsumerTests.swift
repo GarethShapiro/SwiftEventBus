@@ -108,7 +108,7 @@ class EventConsumerTests: XCTestCase {
         XCTAssertNil(stubEventConsumer.consumeCalledWith, "EventConsumer.consume was called unexpectedly")
 	}
 
-    // Event on excludeList is not consumed despute AllEvent on willConsume
+    // Event on excludeList is not consumed despite AllEvent on willConsume
     func testExcludeListWithAllWillConsumeEvent() {
 
         // GIVEN a registered EventConsumer which includes a specific Event on its excludeList

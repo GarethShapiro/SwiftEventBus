@@ -12,14 +12,18 @@ import SwiftEventBus
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var eventBus: EventBus
+    let eventBus: EventBus
 
     lazy var model: Model = Model(eventBus: eventBus)
-    var flowController: FlowController
+    let flowController: FlowController
 
     override init() {
         eventBus = EventBus()
         flowController = FlowController(eventBus: eventBus)
+
+        super.init()
+
+        registerEventConsumers()
     }
 
     func application(_ application: UIApplication,
@@ -35,5 +39,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         model.initialiseApplication()
 
         return true
+    }
+
+    private func registerEventConsumers() {
+
+        let eventConsumers: [EventConsumer] = [Logger(), AnalyticsMediator()]
+        for consumer in eventConsumers { eventBus.register(consumer) }
     }
 }

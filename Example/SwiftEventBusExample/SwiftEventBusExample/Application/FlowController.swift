@@ -82,4 +82,8 @@ class FlowController: UINavigationController, EventConsumer {
             return ScreenThree(eventBus: eventBus)
         }
     }
+
+    override var debugDescription: String {
+        return "FlowController()"
+    }
 }

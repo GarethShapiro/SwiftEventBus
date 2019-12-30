@@ -81,11 +81,12 @@ public class EventBus {
     private func matchConsumerAndEvent(_ consumer: EventConsumer, _ targetEvent: Event) -> Bool {
 
         if consumer.excludeList.contains(where: { consumerEvent in consumerEvent is NoEvent.Type }) == true { return true }
+        if consumer.excludeList.contains(where: { consumerEvent in targetEvent.isKind(of:consumerEvent) }) == true { return false }
+
         if consumer.willConsume.contains(where: { consumerEvent in consumerEvent is NoEvent.Type }) == true { return false }
         if consumer.willConsume.contains(where: { consumerEvent in consumerEvent is AllEvent.Type }) == true { return true }
 
         if consumer.excludeList.contains(where: { consumerEvent in consumerEvent is AllEvent.Type }) == true { return false }
-        if consumer.excludeList.contains(where: { consumerEvent in targetEvent.isKind(of:consumerEvent) }) == true { return false }
         if consumer.willConsume.contains(where: { consumerEvent in targetEvent.isKind(of:consumerEvent) }) == false { return false }
 
         return true

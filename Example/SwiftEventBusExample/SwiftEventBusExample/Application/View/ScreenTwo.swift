@@ -37,6 +37,13 @@ class ScreenTwo: UIViewController {
         setupLayoutConstraints()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let payload = PageViewEvent.Payload(name: "Screen Two", time: Date(timeIntervalSinceNow: 0))
+        let event = PageViewEvent(with: payload)
+        eventBus.dispatch(event)
+    }
+
     // MARK: - UI
     private func createUI() {
 

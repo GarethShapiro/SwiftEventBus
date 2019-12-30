@@ -16,4 +16,9 @@ class NavigationEvent: NSObject, Event {
     init(destination: FlowController.Destination) {
         self.destination = destination
     }
+
+    // MARK: - NSObjectProtocol
+    override var debugDescription: String {
+        return "NavigationEvent(destination: \(destination))"
+    }
 }
