@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     override init() {
         eventBus = EventBus()
-        flowController = FlowController()
+        flowController = FlowController(eventBus: eventBus)
     }
 
     func application(_ application: UIApplication,

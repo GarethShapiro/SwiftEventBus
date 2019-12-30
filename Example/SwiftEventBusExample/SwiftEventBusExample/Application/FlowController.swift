@@ -11,9 +11,20 @@ import SwiftEventBus
 
 class FlowController: UINavigationController, EventConsumer {
 
+    let eventBus: EventBus
+
+    init(eventBus: EventBus) {
+        self.eventBus = eventBus
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .blue
+        isNavigationBarHidden = true
     }
 
     // MARK: - EventConsumer
@@ -33,6 +44,7 @@ class FlowController: UINavigationController, EventConsumer {
     enum Destination {
         case screenOne
         case screenTwo
+        case screenThree
 
         var targetViewControllerType: UIViewController.Type {
             switch self {
@@ -40,6 +52,8 @@ class FlowController: UINavigationController, EventConsumer {
                 return ScreenOne.self
             case .screenTwo:
                 return ScreenTwo.self
+            case .screenThree:
+                return ScreenThree.self
             }
         }
     }
@@ -47,7 +61,7 @@ class FlowController: UINavigationController, EventConsumer {
     private func navigateTo(_ destination: Destination) {
 
         guard let targetViewController = existingUIViewController(ofType: destination.targetViewControllerType) else {
-            pushViewController(destination.targetViewControllerType.init(), animated: true)
+            pushViewController(createViewControler(for: destination), animated: true)
             return
         }
 
@@ -56,5 +70,16 @@ class FlowController: UINavigationController, EventConsumer {
 
     private func existingUIViewController(ofType type: UIViewController.Type) -> UIViewController? {
         return viewControllers.filter{ $0.isKind(of: type) }.first
+    }
+
+    private func createViewControler(for destination: Destination) -> UIViewController {
+        switch destination {
+        case .screenOne:
+            return ScreenOne(eventBus: eventBus)
+        case .screenTwo:
+            return ScreenTwo(eventBus: eventBus)
+        case .screenThree:
+            return ScreenThree(eventBus: eventBus)
+        }
     }
 }

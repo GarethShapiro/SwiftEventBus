@@ -20,7 +20,9 @@
 		6A5242A723B80DC5007111BC /* NavigationEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5242A623B80DC5007111BC /* NavigationEvent.swift */; };
 		6A5242A923B8135D007111BC /* FlowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5242A823B8135D007111BC /* FlowController.swift */; };
 		6A5242AC23B81394007111BC /* ScreenOne.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5242AB23B81394007111BC /* ScreenOne.swift */; };
-		6A5242AE23B813AC007111BC /* ScreenTwo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5242AD23B813AC007111BC /* ScreenTwo.swift */; };
+		6A5242AE23B813AC007111BC /* ScreenThree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5242AD23B813AC007111BC /* ScreenThree.swift */; };
+		6A5242B023B95E8F007111BC /* EventDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5242AF23B95E8F007111BC /* EventDispatcher.swift */; };
+		6A5242B223BA40F0007111BC /* ScreenTwo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5242B123BA40F0007111BC /* ScreenTwo.swift */; };
 		6ACA309321DA7EB200E78D56 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ACA309221DA7EB200E78D56 /* AppDelegate.swift */; };
 		6ACA309A21DA7EB400E78D56 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6ACA309921DA7EB400E78D56 /* Assets.xcassets */; };
 		6AEE17BB2201BACF004F7A58 /* FirstEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AEE17BA2201BACF004F7A58 /* FirstEvent.swift */; };
@@ -81,7 +83,9 @@
 		6A5242A623B80DC5007111BC /* NavigationEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationEvent.swift; sourceTree = "<group>"; };
 		6A5242A823B8135D007111BC /* FlowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlowController.swift; sourceTree = "<group>"; };
 		6A5242AB23B81394007111BC /* ScreenOne.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenOne.swift; sourceTree = "<group>"; };
-		6A5242AD23B813AC007111BC /* ScreenTwo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenTwo.swift; sourceTree = "<group>"; };
+		6A5242AD23B813AC007111BC /* ScreenThree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenThree.swift; sourceTree = "<group>"; };
+		6A5242AF23B95E8F007111BC /* EventDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDispatcher.swift; sourceTree = "<group>"; };
+		6A5242B123BA40F0007111BC /* ScreenTwo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenTwo.swift; sourceTree = "<group>"; };
 		6ACA308F21DA7EB200E78D56 /* SwiftEventBusExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftEventBusExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6ACA309221DA7EB200E78D56 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6ACA309921DA7EB400E78D56 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -160,7 +164,8 @@
 			isa = PBXGroup;
 			children = (
 				6A5242AB23B81394007111BC /* ScreenOne.swift */,
-				6A5242AD23B813AC007111BC /* ScreenTwo.swift */,
+				6A5242AD23B813AC007111BC /* ScreenThree.swift */,
+				6A5242B123BA40F0007111BC /* ScreenTwo.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -215,6 +220,7 @@
 				6AEE17BC2201BF62004F7A58 /* LaunchScreen.xib */,
 				A498501C2211ECAC00B67347 /* TestAppDelegate.swift */,
 				A498501F2211ED7000B67347 /* main.swift */,
+				6A5242AF23B95E8F007111BC /* EventDispatcher.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -389,11 +395,13 @@
 				A49850202211ED7000B67347 /* main.swift in Sources */,
 				A49850212211F01B00B67347 /* TestAppDelegate.swift in Sources */,
 				6A5242A923B8135D007111BC /* FlowController.swift in Sources */,
+				6A5242B223BA40F0007111BC /* ScreenTwo.swift in Sources */,
 				6A5242A723B80DC5007111BC /* NavigationEvent.swift in Sources */,
 				6AEE17BB2201BACF004F7A58 /* FirstEvent.swift in Sources */,
 				6A5242AC23B81394007111BC /* ScreenOne.swift in Sources */,
 				6AEE17C12201BFC6004F7A58 /* Model.swift in Sources */,
-				6A5242AE23B813AC007111BC /* ScreenTwo.swift in Sources */,
+				6A5242B023B95E8F007111BC /* EventDispatcher.swift in Sources */,
+				6A5242AE23B813AC007111BC /* ScreenThree.swift in Sources */,
 				6ACA309321DA7EB200E78D56 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
