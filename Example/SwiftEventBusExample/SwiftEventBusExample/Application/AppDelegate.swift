@@ -17,6 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     lazy var model: Model = Model(eventBus: eventBus)
     let flowController: FlowController
 
+    // MARK: - Lifecycle
     override init() {
         eventBus = EventBus()
         flowController = FlowController(eventBus: eventBus)
@@ -29,8 +30,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
-        eventBus.register(flowController)
-
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = flowController
         window?.backgroundColor = .white
@@ -41,8 +40,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
+    // MARK: - EventBus
     private func registerEventConsumers() {
-        let eventConsumers: [EventConsumer] = [model, Logger(), AnalyticsMediator()]
+        let eventConsumers: [EventConsumer] = [model, flowController, Logger(), AnalyticsMediator()]
         for consumer in eventConsumers { eventBus.register(consumer) }
     }
 }
