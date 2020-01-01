@@ -90,16 +90,16 @@ final class FlowController: UIViewController, EventConsumer {
 
     // MARK: - EventConsumer
     var willConsume: [Event.Type] {
-        return [NavigationEvent.self, ShowUserRewardEvent.self, HideUserRewardEvent.self]
+        return [NavigationEvent.self, UserQualifiedForRewardEvent.self, RewardClaimedStateEvent.self]
     }
 
     func consume(_ event: Event) {
         switch event {
         case let navigationEvent as NavigationEvent:
             navigateTo(navigationEvent.destination)
-        case is ShowUserRewardEvent:
+        case is UserQualifiedForRewardEvent:
             showPrizeUI()
-        case is HideUserRewardEvent:
+        case is RewardClaimedStateEvent:
             hidePrizeUI()
         default: break;
         }

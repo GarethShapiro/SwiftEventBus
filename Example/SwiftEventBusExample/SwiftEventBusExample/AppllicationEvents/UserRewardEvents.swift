@@ -8,6 +8,6 @@
 import Foundation
 import SwiftEventBus
 
-class ShowUserRewardEvent: NSObject, Event { }
-class HideUserRewardEvent: NSObject, Event { }
+class UserQualifiedForRewardEvent: NSObject, Event { }
 class UserClaimRewardEvent: NSObject, Event { }
+class RewardClaimedStateEvent: NSObject, Event { }

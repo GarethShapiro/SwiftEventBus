@@ -19,8 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // MARK: - Lifecycle
     override init() {
-        eventBus = EventBus()
-        flowController = FlowController(eventBus: eventBus)
+        self.eventBus = EventBus()
+        self.flowController = FlowController(eventBus: eventBus)
 
         super.init()
 

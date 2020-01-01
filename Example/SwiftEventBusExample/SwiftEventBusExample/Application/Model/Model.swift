@@ -39,14 +39,14 @@ final class Model: NSObject, EventConsumer {
         case is UserRewardPageViewEvent:
 
             if userHasClaimedPrize == false {
-                let event = ShowUserRewardEvent()
+                let event = UserQualifiedForRewardEvent()
                 eventBus.dispatch(event)
             }
 
         case is UserClaimRewardEvent:
-
+            
             userHasClaimedPrize = true
-            let event = HideUserRewardEvent()
+            let event = RewardClaimedStateEvent()
             eventBus.dispatch(event)
 
         default:break
