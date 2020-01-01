@@ -126,7 +126,7 @@ final class FlowController: UIViewController, EventConsumer {
     private func navigateTo(_ destination: Destination) {
 
         guard let targetViewController = existingUIViewController(ofType: destination.targetViewControllerType) else {
-            navController.pushViewController(createViewControler(for: destination), animated: true)
+            navController.pushViewController(createViewController(for: destination), animated: true)
             return
         }
 
@@ -138,7 +138,7 @@ final class FlowController: UIViewController, EventConsumer {
     }
 
     // MARK: - Screen Factory
-    private func createViewControler(for destination: Destination) -> UIViewController {
+    private func createViewController(for destination: Destination) -> UIViewController {
         switch destination {
         case .screenOne:
             return ScreenOne(eventBus: eventBus)
